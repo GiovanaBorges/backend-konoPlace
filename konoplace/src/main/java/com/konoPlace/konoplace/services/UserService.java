@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+
 
     private String encryptPass(String pass){
         BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
@@ -46,4 +49,7 @@ public class UserService {
             return ResponseEntity.status(200).body(userRepo.save(user));
         }
     }
-}
+
+    public ResponseEntity<List<UserModel>> getUsers(){
+        return ResponseEntity.ok(userRepo.findAll());
+    }}

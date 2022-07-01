@@ -29,6 +29,7 @@ public class UserService {
         return encrypt.matches(newpass,pass);
     }
 
+
     public ResponseEntity<UserModel> registerUser(@Valid UserRegisterDTO newUser){
         Optional<UserModel> optUser = userRepo.findByEmail(newUser.getEmail());
 

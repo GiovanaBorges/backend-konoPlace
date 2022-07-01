@@ -7,9 +7,10 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class UserRegisterDTO {
+
     private @NotBlank String nome;
 
-    @Email
+    @NotBlank
     private String email;
 
     @NotBlank

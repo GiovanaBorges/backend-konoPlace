@@ -25,12 +25,11 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers(){
-
-        return ResponseEntity.ok(repository.findAll());
+      return userService.getUsers();
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> createUser(@Valid @RequestBody UserRegisterDTO user){
+    public ResponseEntity<UserModel> createUser(@RequestBody UserRegisterDTO user){
         return userService.registerUser(user);
     }
 

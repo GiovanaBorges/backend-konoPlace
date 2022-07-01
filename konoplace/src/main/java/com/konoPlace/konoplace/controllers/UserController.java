@@ -13,8 +13,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/user")
-@CrossOrigin("*")
 public class UserController {
 
     //injeção de dependencias

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/mesa")
-@CrossOrigin("*")
 public class MesaController {
 
     //injeção de dependencias

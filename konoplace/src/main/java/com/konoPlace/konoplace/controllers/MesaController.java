@@ -20,7 +20,9 @@ public class MesaController {
 
     @GetMapping
     public ResponseEntity<List<MesaModel>> getMesa(){
+
         return ResponseEntity.ok(repository.findAll());
+
     }
 
     @PostMapping

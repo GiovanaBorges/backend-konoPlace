@@ -23,5 +23,5 @@ public class ReservaModel {
     @JsonIgnoreProperties("reserva")
     private MesaModel mesa;
 
-    private LocalDate data;
+    private LocalDate date;
 }

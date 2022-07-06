@@ -1,8 +1,10 @@
 package com.konoPlace.konoplace.services;
 
-import com.konoPlace.konoplace.dto.UserRegisterDTO;
+
+import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,7 +33,31 @@ public class UserService {
         return encrypt.matches(newpass,pass);
     }
 
-    public ResponseEntity<UserModel> registerUser(@Valid UserRegisterDTO newUser){
+    private String generateBasicToken(String user , String senha){
+        String structure = user + ":" + senha;
+        byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
+        return "Basic " + new String(structureBase64);
+    }
+
+    public Optional<UserLogin> loginUser(UserLogin userlogin){
+        Optional<UserModel> userCompare = userRepo.findByEmail(userlogin.getEmail());
+        if(userCompare.isEmpty()){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
+        }else{
+            if(comparePass(userlogin.getPass(), userCompare.get().getSenha())){
+                userlogin.setId(userlogin.getId());
+                userlogin.setEmail(userlogin.getEmail());
+                userlogin.setPass(userlogin.getPass());
+                userlogin.setToken(generateBasicToken(userlogin.getEmail(), userlogin.getPass()));
+                return Optional.of(userlogin);
+            }
+        }
+        throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
+
+    }
+
+
+    public ResponseEntity registerUser(UserModel newUser){
         Optional<UserModel> optUser = userRepo.findByEmail(newUser.getEmail());
 
         if(optUser.isPresent()){
@@ -45,4 +73,7 @@ public class UserService {
             return ResponseEntity.status(200).body(userRepo.save(user));
         }
     }
-}
+
+    public ResponseEntity<List<UserModel>> getUsers(){
+        return ResponseEntity.ok(userRepo.findAll());
+    }}

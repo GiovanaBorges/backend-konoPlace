@@ -28,6 +28,9 @@ public class UserModel {
     private String cargo;
 
     @NotBlank
+    private String foto;
+
+    @NotBlank
     private String departamento;
 
     @NotBlank

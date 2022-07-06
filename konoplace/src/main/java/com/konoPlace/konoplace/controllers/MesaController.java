@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -21,6 +22,25 @@ public class MesaController {
     @GetMapping
     public ResponseEntity<List<MesaModel>> getMesa(){
         return ResponseEntity.ok(repository.findAll());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<MesaModel> getMesaById(@PathVariable Long id){
+        return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<MesaModel> getMesaByName(@PathVariable String name){
+        MesaModel mesa =  repository.findByName(name);
+        if(mesa != null){
+            return ResponseEntity.ok(repository.findByName(name));
+        }else{
+            return (ResponseEntity<MesaModel>) ResponseEntity.notFound();
+        }
+
+
     }
 
     @PostMapping

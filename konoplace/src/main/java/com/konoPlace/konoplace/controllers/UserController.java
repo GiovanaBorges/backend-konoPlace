@@ -1,6 +1,6 @@
 package com.konoPlace.konoplace.controllers;
 
-import com.konoPlace.konoplace.dto.UserRegisterDTO;
+import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import com.konoPlace.konoplace.services.UserService;
@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -25,12 +25,18 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers(){
-        return ResponseEntity.ok(repository.findAll());
+      return userService.getUsers();
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> createUser(@Valid @RequestBody UserRegisterDTO user){
+    public ResponseEntity<UserModel> createUser(UserModel user){
         return userService.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public Optional<UserLogin> Authenticate(UserLogin user)
+    {
+        return userService.loginUser(user);
     }
 
     @PutMapping

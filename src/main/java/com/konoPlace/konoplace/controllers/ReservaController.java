@@ -1,13 +1,12 @@
 package com.konoPlace.konoplace.controllers;
 
-
-import com.konoPlace.konoplace.models.MesaModel;
 import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -30,6 +29,13 @@ public class ReservaController {
     public ResponseEntity<ReservaModel> getReservaById(@PathVariable Long id){
         return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/home")
+    public ModelAndView  register(){
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("home.html");
+        return model;
     }
 
     @PostMapping

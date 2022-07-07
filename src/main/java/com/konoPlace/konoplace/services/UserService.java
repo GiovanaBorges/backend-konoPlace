@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.nio.charset.Charset;
@@ -39,8 +40,11 @@ public class UserService {
         return "Basic " + new String(structureBase64);
     }
 
-    public Optional<UserLogin> loginUser(UserLogin userlogin){
+    public ModelAndView loginUser(UserLogin userlogin){
         Optional<UserModel> userCompare = userRepo.findByEmail(userlogin.getEmail());
+        ModelAndView model = new ModelAndView(); 
+        
+        
         if(userCompare.isEmpty()){
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
         }else{
@@ -49,10 +53,12 @@ public class UserService {
                 userlogin.setEmail(userlogin.getEmail());
                 userlogin.setPass(userlogin.getPass());
                 userlogin.setToken(generateBasicToken(userlogin.getEmail(), userlogin.getPass()));
-                return Optional.of(userlogin);
+                model.setViewName("home.html");
+                return model;
             }
         }
-        throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
+        model.setViewName("index.html");
+        return model;
 
     }
 

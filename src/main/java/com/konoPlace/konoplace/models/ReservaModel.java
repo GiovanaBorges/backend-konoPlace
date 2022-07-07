@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 @Table(name="reserva")
@@ -22,5 +25,6 @@ public class ReservaModel {
     @JsonIgnoreProperties("reserva")
     private MesaModel mesa;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 }

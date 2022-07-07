@@ -7,6 +7,7 @@ import com.konoPlace.konoplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,21 +24,35 @@ public class UserController {
 
     private UserService userService;
 
+    @GetMapping("/register")
+    public ModelAndView  registerScreen(){
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("index.html");
+        return model;
+    }
+
+    @GetMapping("/login")
+    public ModelAndView loginScreen()
+    {
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("login.html");
+        return model;
+    }
+
+
+    /*
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers(){
       return userService.getUsers();
     }
+     */
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserModel> createUser(UserModel user){
         return userService.registerUser(user);
     }
 
-    @PostMapping("/login")
-    public Optional<UserLogin> Authenticate(UserLogin user)
-    {
-        return userService.loginUser(user);
-    }
+   
 
     @PutMapping
     public ResponseEntity<UserModel> EditUser(@RequestBody UserModel user){

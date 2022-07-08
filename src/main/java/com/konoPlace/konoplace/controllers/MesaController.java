@@ -5,7 +5,9 @@ import com.konoPlace.konoplace.repositories.MesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +21,22 @@ public class MesaController {
     @Autowired
     private MesaRepository repository;
 
-    @GetMapping
-    public ResponseEntity<List<MesaModel>> getMesa(){
-        return ResponseEntity.ok(repository.findAll());
+    @GetMapping("/list")
+    public List<MesaModel> getMesa(){
+        return repository.findAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping()
+    public ModelAndView getMesaModel(){
+        ModelAndView model = new ModelAndView(); 
+        List<MesaModel> mesas = getMesa();
+        model.addObject("place-info" , mesas);
+        model.setViewName("home.html");
+        return model;
+    }
+
+
+    @GetMapping("/{id}")
     public ResponseEntity<MesaModel> getMesaById(@PathVariable Long id){
         return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());

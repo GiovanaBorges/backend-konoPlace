@@ -80,6 +80,4 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<List<UserModel>> getUsers(){
-        return ResponseEntity.ok(userRepo.findAll());
-    }}
+}

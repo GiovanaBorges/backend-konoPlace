@@ -19,14 +19,14 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Konoplace")
-                        .description("Konoplace is a ")
+                        .description("Konoplace é uma plataforma de reservas online dos escritórios da First Tech")
                         .version("v0.0.1")
                         .license(new License()
                                 .name("Giovana borges / Gustavo mascarenhas / thaina colli")
                                 .url("https://giovanaportifolio.herokuapp.com")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Github")
-                        .url("https://github.com/GiovanaBorges/BlogPessoal-Generation"));
+                        .url("https://github.com/GiovanaBorges"));
     }
 
     @Bean

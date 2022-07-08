@@ -1,6 +1,7 @@
 package com.konoPlace.konoplace.controllers;
 
 import com.konoPlace.konoplace.models.ReservaModel;
+import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class ReservaController {
     @Autowired
     private ReservaRepository repository;
 
+
     @GetMapping
     public ResponseEntity<List<ReservaModel>> getReserva(){
         return ResponseEntity.ok(repository.findAll());
@@ -31,10 +33,21 @@ public class ReservaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/home")
-    public ModelAndView  register(){
+    @GetMapping("/reservas")
+    public ModelAndView profileScreen()
+    {
         ModelAndView model = new ModelAndView(); 
-        model.setViewName("home.html");
+        model.setViewName("reserve.html");
+        model.addObject("reserva", getReserva());
+        return model;
+    }
+
+   
+
+    @GetMapping("/perfil")
+    public ModelAndView  perfil(){
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("perfil.html");
         return model;
     }
 

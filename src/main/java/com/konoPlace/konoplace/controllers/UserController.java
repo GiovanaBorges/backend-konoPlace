@@ -22,7 +22,11 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-    private UserService userService;
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UserModel>> getUsers(){
+      return ResponseEntity.ok(repository.findAll());
+    }
 
     @GetMapping("/register")
     public ModelAndView  registerScreen(){
@@ -39,19 +43,35 @@ public class UserController {
         return model;
     }
 
-
-    /*
-    @GetMapping
-    public ResponseEntity<List<UserModel>> getUsers(){
-      return userService.getUsers();
+    @GetMapping("/forget")
+    public ModelAndView forgetScreen()
+    {
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("forget.html");
+        return model;
     }
-     */
+    
+    @GetMapping("/perfil")
+    public ModelAndView perfilScreen()
+    {
+        ModelAndView model = new ModelAndView(); 
+        model.setViewName("perfil.html");
+        return model;
+    }
 
+
+
+    
+   
+     
+
+    /* 
     @PostMapping("/register")
     public ResponseEntity<UserModel> createUser(UserModel user){
         return userService.registerUser(user);
+        
     }
-
+*/
    
 
     @PutMapping

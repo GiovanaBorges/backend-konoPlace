@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg" style="background:var(--dark-100)">
+  <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
       <a class="navbar-brand text-white" href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -46,11 +46,27 @@
 
     <div class="container-fluid reserve_space" >
       <div class="d-grid gap-2 d-md-flex justify-content-center">
-        <a href="perfil.html" class="link me-md-2 p-3 mt-3">Perfil</a>
-        <a href="reserve.html" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
+        <a  th:href="@{/reserva/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
+        <a th:href="@{/reserva}" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
       </div>
-      <h1>aaaaaaaa</h1>
       
+      <div class="d-flex align-items-center align-content-center mt-5 " data-th-each="reserva : ${reserva}">
+        <div class="card m-auto" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" id="reserve_information" th-text="#{reserva.mesa.name}"></h5>
+            <p class="card-text mt-1" id="date_reserve" th-text="#{reserva.mesa.name}"></p>
+            <p class="card-text" id="perifericos" th-text="#{reserva.mesa.perifericos}"></p>
+            <a th:href="@{/reserva/home}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
+            <div class="d-flex mt-3">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
+                style="width:50%;">Editar</a>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
+                style="width:50%;">Cancelar</a>
+            </div>
+  
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -116,7 +132,7 @@
 
         
         <h6 id="place_data">
-
+          
         </h6>
         <h6 class="modal-body m-0" id="place_info">
           <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">
@@ -168,12 +184,12 @@
   </div>
 
 
-  <script src="./js/trocarcordefundo.js"></script>
-  <script src="./js/js.js"></script>
+  <script th:src="@{/js/trocarcordefundo.js}"></script>
+  <script th:src="@{/js/js.js}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
-    <script src="./js/js.js"></script>
+    
 </body>
 
 </html>

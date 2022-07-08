@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Table(name="reserva")
@@ -26,5 +27,5 @@ public class ReservaModel {
     private MesaModel mesa;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate date;
+    private Date date;
 }

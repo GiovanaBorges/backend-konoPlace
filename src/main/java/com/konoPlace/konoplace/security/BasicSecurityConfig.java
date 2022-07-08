@@ -2,6 +2,7 @@ package com.konoPlace.konoplace.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
+@Configuration
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -31,11 +33,20 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.formLogin().loginPage("/user").permitAll().isCustomLoginPage();
-        http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/user").permitAll()
-                .antMatchers("/reserva").permitAll().antMatchers("/mesa").permitAll().anyRequest()
-                .authenticated().and().httpBasic().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().and().csrf().disable();
+        http.authorizeRequests().antMatchers("/user/login" , "/css/**", "/js/**", "/assets/**",
+        "/user/register" , "/user/**" , "/mesa/**" , "/reserva/**").permitAll();
+                
+
+                /* 
+                .and()
+                .formLogin()
+                
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/home")
+                
+                .permitAll()
+                .isCustomLoginPage();
+                */
     }
 
 }

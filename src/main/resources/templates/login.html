@@ -68,12 +68,12 @@
                   <input id="pass" name="pass"  type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
                 </div>
                 <div class="mb-3 d-flex justify-content-end">
-                  <a href="./forget.html">Esqueci a senha</a>
+                  <a th:href="@{/forget}" href="./forget.html">Esqueci a senha</a>
 
                 </div>
                 <button type="submit" class="btn btn-outline-secondary">Entrar</button>
                 <div class="mb-3 mt-3 d-flex justify-content-start">
-                  <a href="/user/index.html">Não tenho conta</a>
+                  <a th:href="@{/register}" href="./index.html">Não tenho conta</a>
 
                 </div>
               </form>

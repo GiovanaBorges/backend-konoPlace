@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/styles/styles.css}">
+  <link rel="shortcut icon" th:href="@{/assets/orange-logo.png}" type="image/x-icon">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg" >
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="d-flex" role="search">
+        <span class="navbar-text text-white">
+
+          <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
+            alt="logout" />
+
+          <a href="home.html"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
+              alt="schedule"></a>
+          <a href="perfil.html"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
+              alt="user profile" /></a>
+          <a href="perfil.html"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
+              alt="logout" /></a> </span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <div class="container-fluid reserve_space" >
+      <div class="d-grid gap-2 d-md-flex justify-content-center">
+        <a  th:href="@{/reserva/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
+        <a th:href="@{/reserva}" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
+      </div>
+      
+      <div class="d-flex align-items-center align-content-center mt-5 " data-th-each="reserva : ${reserva}">
+        <div class="card m-auto" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" id="reserve_information" th-text="#{reserva.mesa.name}"></h5>
+            <p class="card-text mt-1" id="date_reserve" th-text="#{reserva.mesa.name}"></p>
+            <p class="card-text" id="perifericos" th-text="#{reserva.mesa.perifericos}"></p>
+            <a th:href="@{/reserva/home}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
+            <div class="d-flex mt-3">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
+                style="width:50%;">Editar</a>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
+                style="width:50%;">Cancelar</a>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+
+  <footer class="container-fluid text-white" style="background:var(--dark-100)">
+    <div class="container"> 
+                <div class="row align-items-center  justify-content-center">
+                    <div class="col-sm-4 col-md-6">
+                        <img src="./assets/cropped-img-logo-FT.png"
+                            class="logo-icon " alt="">
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="">KonoPlace + First tech</a>
+                        </li>
+                    </div>
+
+                    <div class="col-sm-2 col-md-2">
+
+                        <div class="row align-items-center">
+
+                            <li class="nav-item col-md-4 col-sm-3">
+                                <a href="https://www.instagram.com/firsttechbr/" target=_blank
+                                    class="nav-link text-white mx-3"><img
+                                        src="https://img.icons8.com/fluency/30/undefined/instagram-new.png" /></a>
+                            </li>
+
+
+
+
+
+                            <li class="nav-item col-md-6 col-sm-4">
+                                <a href="https://www.linkedin.com/company/first-tech/mycompany/"
+                                    target=_blank class="nav-link text-white ">
+                                    <img
+                                        src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
+                            </li>
+
+
+
+
+                     
+
+                        <div class="row align-items-center">
+
+                    </div>
+
+                </div>
+                </div>
+    </div>
+</footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalEditReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color:var(--dark-100)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalInfo"> Deseja editar sua reserva?</h5>
+          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            onclick="cleanModal()"></button></div>
+
+        
+        <h6 id="place_data">
+          
+        </h6>
+        <h6 class="modal-body m-0" id="place_info">
+          <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">
+            <h6 class="">Escolha a nova data:</h6>
+            <input type="date" class="form-control" id="date_reservation" name="fdate_reservation"
+              style="width:50%;background-color:var(--bg)">
+            <button type="submit" class="btn btn-outline-danger mb-3 mt-3" style="width:50%;">Verificar disponibilidade</button>
+          </form>
+        </h6>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="submit" class="btn btn-outline-success" style="width:50%;">Salvar</button>
+          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"
+            style="width:50%;">Cancelar</button>
+        </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalDeleteReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color:var(--dark-100)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalInfo"> Deseja Cancelar sua reserva?</h5>
+          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            onclick="cleanModal()"></button>
+        </div>
+        <h6 id="place_data">
+          Reserva : 30/06/2022
+        </h6>
+        <h6 class="modal-body m-0" id="place_info">
+
+        </h6>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="submit" class="btn btn-outline-success" style="width:50%;">Sim</button>
+          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"
+            style="width:40%;">Cancelar</button>
+        </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <script th:src="@{/js/trocarcordefundo.js}"></script>
+  <script th:src="@{/js/js.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+    
+</body>
+
+</html>

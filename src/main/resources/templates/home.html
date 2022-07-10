@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-br"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/styles/styles.css}" href="./styles/styles.css">
+    <link rel="shortcut icon" th:href="@{/assets/orange-logo.png}" type="image/x-icon">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand "><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="d-flex" role="search">
+                <span class="navbar-text ">
+                    <img id="element" th:src="@{https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png}" class="icon mx-3"
+                        alt="logout" />
+                    <a th:href="@{/mesa}" ><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png"
+                            class="icon mx-3" alt="schedule"></a>
+                    <a th:href="@{user/perfil}" ><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png"
+                            class="icon mx-3" alt="user profile" /></a>
+
+
+
+                    <a href="perfil.html"><img src="https://img.icons8.com/ios/24/F97A2D/exit.png " class="icon mx-4"
+                            alt="logout" /></a>
+
+                </span>
+
+
+            </div>
+        </div>
+    </nav>
+
+
+                <main>
+
+                    <div class="container-fluid" >
+                        <div class=" container">
+                            <div class="row p-3 m-1" >
+                                <div class="col-md-6 col-sm-6 col-xl-6 align-self-center p-1">
+                                    
+                                    <form action="" onsubmit="date()">
+                                        <h6 class="">Escolha a data de sua reserva:</h6>
+                                        <input type="date" class="form-control" id="date_reservation" name="fdate_reservation" style="width:auto">
+                                        <button type="submit" class="btn btn-outline-danger mb-3 mt-3">Verificar</button>
+                                    </form>
+                                </div>
+    
+                                <div class="col-md-6  col-sm-6 col-xl-6 align-self-center p-1">
+    
+                                    <div class="row align-items-center justify-content-start">
+                                        <div class="col-1">
+                                            <div class="place place_empty">K</div>
+                                        </div>
+                                        <div class="col-1">
+                                            <h6 class="mt-1">Livre</h6>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row align-items-center justify-content-start">
+                                        
+                                        
+                                        <div class="col-1">
+                                            <div class="place place_kono">K</div>
+                                        </div>
+                                        <div class="col-1">
+                                            <h6 class="mt-1">Ocupado</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="container">
+
+                        <div class="container-fluid flex-column justify-content-between align-items-center mb-2 mt-3"
+                        data-th-each="List place : ${place-info}">
+                            <div class="container-fluid d-flex justify-content-between" >
+
+                                <div class="d-flex container">
+
+                                    <div class="container d-flex p-1 flex-column justify-content-evenly align-items-center"
+                                        style="border:solid 2px;">
+                                        <div class="d-flex container flex-column justify-content-center p-1 align-items-center"
+                                            >
+                                            <div class="place place_gray"  >
+                                                <h5>M</h5>
+                                            </div>
+                                            <hr class="table-right" />
+                                            <div class="place place_gray"  >
+                                                <h5>M</h5>
+                                            </div>
+                                        </div>
+                                        <h6 class="mt-1">Sala de Descompressão</h6>
+                                        <div class="d-flex container flex-column justify-content-center p-1 align-items-center"
+                                           >
+                                            <div class="place place_gray"  >
+                                                <h5>M</h5>
+                                            </div>
+                                            <hr class="table-right" />
+                                            <div class="place place_gray" >
+                                                <h5>M</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-around container-fluid">
+                                        <div class=" d-flex flex-column">
+
+
+                                            <div class="d-flex">
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                   >
+                                                    <div class="place place_empty" id="k1" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva" th:onclick="createModal([[${place}]] ,'k1')">
+                                                        <h5>K01</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k2" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K02</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                    >
+                                                    <div class="place place_empty" id="k3" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K03</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k4" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K04</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                    >
+                                                    <div class="place place_empty" id="k5" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K05</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k6" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K06</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                   >
+                                                    <div class="place place_empty" id="k7" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K07</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k8" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K08</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                   >
+                                                    <div class="place place_empty" id="k9" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K09</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k10" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>k10</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center p-1 my-2 mx-2 align-items-center"
+                                                    style="width: auto;">
+                                                    <div class="place place_empty" id="k11" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K11</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k12" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K12</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h6 class="text-center mt-1">Escritório</h6>
+                                            <div class="d-flex justify-content-end container-fluid">
+
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                   >
+                                                    <div class="place place_empty" id="k13" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K13</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k14" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K14</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center  p-1 my-2 mx-2 align-items-center"
+                                                   >
+                                                    <div class="place place_empty" id="k15" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K15</h5>
+                                                    </div>
+                                                    <hr class="table-right" />
+                                                    <div class="place place_empty" id="k16" data-bs-toggle="modal"
+                                                        data-bs-target="#modalReserva">
+                                                        <h5>K16</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column justify-content-between align-items-end "
+                                    >
+
+                                    <div class="d-flex flex-column align-items-center justify-content-between p-5"
+                                        style="border:solid blue 3px;">
+                                        <div class="d-flex">
+                                            <hr class="table-side " />
+                                            <div class="place place_kono" id="k17" >K17</div>
+                                        </div>
+
+
+                                        <div class="d-flex mt-5">
+                                            <hr class="table-side" />
+                                            <div class="place place_kono" id="k18" >K18</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column p-5">
+                                        <div class="d-flex ">
+                                            <hr class="table-side" />
+                                            <div class="place place_empty" id="k19" data-bs-toggle="modal"
+                                                data-bs-target="#modalReserva">K19</div>
+                                        </div>
+
+                                        <div class="d-flex mt-5">
+                                            <hr class="table-side" />
+                                            <div class="place place_empty" id="k20" data-bs-toggle="modal"
+                                                data-bs-target="#modalReserva">K20</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="d-flex flex-column" >
+
+                                <div class="d-flex justify-content-between align-content-between align-items-end">
+                                    <div class="d-flex flex-column justify-content-center align-items-end"
+                                        style="border:solid 2px;min-height:20vh;width:50%;">
+                                        <h5 class=" mx-1">Sala Tesla</h5>
+                                    </div>
+
+
+                                    <div class="d-flex flex-column">
+
+                                        <div class="d-flex justify-content-center p-1 my-2 mx-2 align-items-center"
+                                            style="width: auto;">
+                                            <div class="d-flex flex-column align-items-center mx-1">
+                                                
+                                            </div>
+
+                                            <div class="d-flex flex-column align-items-center mx-1">
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="d-flex justify-content-center p-1 my-2 mx-2 align-items-center"
+                                            style="width: auto;">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <div class="place place_empty" id="k21" data-bs-toggle="modal"
+                                                    data-bs-target="#modalReserva">
+                                                    <h5>K21</h5>
+                                                </div>
+                                                <hr class="table-right" />
+                                                <div class="place place_empty" id="k22" data-bs-toggle="modal"
+                                                    data-bs-target="#modalReserva">
+                                                    <h5>K22</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-column align-items-center ">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="d-flex p-5 flex-column justify-content-center align-items-center m-0"
+                                        style="border:solid #FF7B01 3px">
+                                        <div class="d-flex justify-content-around">
+                                            <hr class="table-side" />
+                                            <div class="place place_kono" id="k23" >K23</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </main>
+
+
+
+
+
+
+                <script th:inline="javascript">
+                    function createModal(info,id){
+                        alert("Aaaaaaaaaaaaaa" , info, id)
+                    }
+                </script>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalInfo"
+                    data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color:var(--dark-100)">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalInfo"> Deseja reservar mesa? </h5>
+                                <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" ></button>
+                            </div>
+                            <h6 id="place_data">
+
+                            </h6>
+                            <h6 class="modal-body m-0" id="place_info">
+
+                            </h6>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" class="btn btn-outline-success" style="width:50%;">Salvar</button>
+                                <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                                    style="width:40%;">Fechar</button>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <footer class="container-fluid text-white container-sm" style="background:var(--dark-100)">
+                    <div class="container "> 
+                                <div class="row align-items-center  justify-content-center">
+                                    <div class="col-sm-4 col-md-6">
+                                        <img src="./assets/cropped-img-logo-FT.png"
+                                            class="logo-icon " alt="">
+                                    </div>
+                                    <div class="col-sm-4 col-md-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="">KonoPlace + First tech</a>
+                                        </li>
+                                    </div>
+
+                                    <div class="col-sm-2 col-md-2">
+
+                                        <div class="row align-items-center">
+
+                                            <li class="nav-item col-md-4 col-sm-3">
+                                                <a href="https://www.instagram.com/firsttechbr/" target=_blank
+                                                    class="nav-link text-white mx-3"><img
+                                                        src="https://img.icons8.com/fluency/30/undefined/instagram-new.png" /></a>
+                                            </li>
+
+
+
+
+
+                                            <li class="nav-item col-md-6 col-sm-4">
+                                                <a href="https://www.linkedin.com/company/first-tech/mycompany/"
+                                                    target=_blank class="nav-link text-white ">
+                                                    <img
+                                                        src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
+                                            </li>
+
+
+
+                                    </div>
+
+                                </div>
+                                </div>
+                    </div>
+                </footer>
+
+
+
+
+                <!-- JavaScript Bundle with Popper -->
+                <script th:src="@{/js/trocarcordefundo.js}"></script>
+                <script th:src="@{/js/js.js}"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+                    crossorigin="anonymous"></script>
+</body>
+
+</html>

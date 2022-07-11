@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Table(name = "user")
@@ -20,23 +21,22 @@ public class UserModel {
     @NotBlank
     private String nome;
 
-    @NotBlank(message = "O atributo Email é obrigatório")
-    @Email(message = "O atributo deve ter um email válido!")
+    @NotNull(message = "O atributo Email é obrigatório")
     private String email;
 
-    @NotBlank
+    @NotNull
     private String cargo;
 
-    @NotBlank
+    
     private String foto;
 
-    @NotBlank
+    @NotNull
     private String departamento;
 
-    @NotBlank
+    @NotNull
     private String senha;
 
-    @NotBlank
+    @NotNull
     private String telefone;
 
 

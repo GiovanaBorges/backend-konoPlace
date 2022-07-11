@@ -1,9 +1,12 @@
 package com.konoPlace.konoplace.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import antlr.collections.List;
 import lombok.Data;
 
 import javax.persistence.*;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 

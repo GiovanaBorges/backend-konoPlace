@@ -1,7 +1,10 @@
 package com.konoPlace.konoplace.controllers;
 
 import com.konoPlace.konoplace.models.MesaModel;
+import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.repositories.MesaRepository;
+import com.konoPlace.konoplace.repositories.ReservaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class MesaController {
     @Autowired
     private MesaRepository repository;
 
+    @Autowired
+    private ReservaRepository reservaRepository;
+
     @GetMapping("/list")
     public List<MesaModel> getMesa(){
         return repository.findAll();
@@ -28,10 +34,11 @@ public class MesaController {
 
     @GetMapping()
     public ModelAndView getMesaModel(){
-        ModelAndView model = new ModelAndView(); 
-        List<MesaModel> mesas = getMesa();
-        model.addObject("place-info" , mesas);
-        model.setViewName("home.html");
+        ModelAndView model = new ModelAndView("home"); 
+        List<MesaModel> mesas = repository.findAll();
+        List<ReservaModel> reserva = reservaRepository.findAll();
+        model.addObject("place" , mesas);
+        model.addObject("reservas" , reserva);
         return model;
     }
 

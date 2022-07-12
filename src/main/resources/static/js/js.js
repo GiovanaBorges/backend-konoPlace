@@ -76,18 +76,6 @@ function date() {
 
 }
 
-(function getReserva(){
-    handle("http://localhost:8085/reserva")
-})()
-
- function handle(url){
-    fetch(url , {body: JSON.stringify()})
-    .then(resp=>{
-         resp.json()
-        .then(resp=> showData(resp))
-    })
-}
-
 function showData(data){
     console.log(data.length)
     data.filter(reserva => reserva.length == 0 ? 
@@ -128,23 +116,7 @@ function showData(data){
     ) 
 }
 
-function handleMesa(id_mesa){
-    console.log(id_mesa.id)
-    getMesa(`http://localhost:8085/mesa` , id_mesa.id)
-}
 
-function getMesa(url,id){
-    fetch(url).then(resp => {
-        resp.json()
-        .then(resp => writeMesa(resp,id))
-    })
-}
-
-
-
-function writeMesa(json,id){
-    console.log(json)
-}
 
 
 /*

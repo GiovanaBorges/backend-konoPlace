@@ -41,8 +41,8 @@ public class UserController {
 
     @GetMapping("/register")
     public ModelAndView  registerScreen(){
-        ModelAndView model = new ModelAndView(); 
-        model.setViewName("index.html");
+        ModelAndView model = new ModelAndView("index.html"); 
+        model.addObject("morte" , "aaaaaaaaaaaaa");
         return model;
     }
 

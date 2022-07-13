@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" >
 
 <head>
   <meta charset="UTF-8">
@@ -21,11 +21,11 @@
 <body>
 
   <header>
-    <div class="container-fluid" style="background:var(--dark-100)">
+    <div class="container-fluid" th:style="@{background:var(--dark-100)}">
 
       <nav class="navbar">
         <div class="container-fluid align-content-center">
-          <a class="navbar-brand " href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
+          <a class="navbar-brand " href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" th:style="@{width:150px}"></a>
           <div class="d-flex" role="search">
             <span class="navbar-text ">
               <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
@@ -56,8 +56,9 @@
         <div class="col-md-6 col-sm-7 col-xl-6 col-xxl-6">
 
           <div class="container-fluid">
-            <form class="m-5 needs-validation " method="POST" action="/register" novalidate th:onsubmit="@{validarcadastro()}" >
+            <form class="m-5 needs-validation " method="POST" th:action="@{/user/register}" novalidate th:onsubmit="@{validarcadastro()}" >
               <h1 class="mb-3">Cadastro</h1>
+              <h1 class="mb-3" th:text="${morte}"></h1>
               <div class="mb-3">
                 <input id="name" name="nome" type="text" class="form-control" aria-describedby="emailHelp"
                   placeholder="Nome Completo" required>
@@ -78,14 +79,14 @@
                 <input id="email" name="email" type="email" class="form-control" placeholder="Email">
               </div>
               <div class="mb-3">
-                <input id="pass" name="telefone" type="password" class="form-control" placeholder="Senha">
+                <input id="pass" name="pass" type="password" class="form-control" placeholder="Senha">
               </div>
               <div class="mb-3">
                 <input id="pass-confirm" name="pass-confirm" type="password" class="form-control" placeholder="Confirmar Senha">
               </div>
 
               <div class="mb-3 d-flex justify-content-end">
-                <a th:href="@{/login}" href="/login.html">Já Tenho conta</a>
+                <a th:href="@{login}">Já Tenho conta</a>
 
               </div>
               <button type="submit" class="btn btn-outline-secondary">Cadastrar</button>
@@ -110,7 +111,7 @@
     <div class="container"> 
                 <div class="row align-items-center  justify-content-center">
                     <div class="col-sm-4 col-md-6">
-                        <img src="./assets/cropped-img-logo-FT.png"
+                        <img th:src="@{/assets/cropped-img-logo-FT.png}"
                             class="logo-icon " alt="">
                     </div>
                     <div class="col-sm-4 col-md-3">
@@ -163,7 +164,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
   crossorigin="anonymous"></script>
-  <script src="user.js"></script>
+  
   
   <script th:src="@{/js/js.js}"></script>
 

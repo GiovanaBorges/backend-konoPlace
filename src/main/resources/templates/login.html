@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br" xmlns="https://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" >
 
 <head>
   <meta charset="UTF-8">
@@ -24,7 +24,7 @@
       <nav class="navbar">
         <div class="container-fluid ">
           <a class="navbar-brand " href="#">
-            <img src="./assets/text-logo-test.png" alt=""></a>
+            <img th:src="@{/assets/text-logo-test.png}" alt=""></a>
           <div class="d-flex" role="search">
             <span class="navbar-text ">
               <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
@@ -45,11 +45,11 @@
   <main>
     <div class="container-fluid">
       <div class="container">
-        <div class="row align-items-center justify-content-center m-0 p-0" style="background-color: var(--bg-dark);">
+        <div class="row align-items-center justify-content-center m-0 p-0" th:style="@{background-color: var(--bg-dark);}">
           <div class="col-md-7 col-xl-7 col-xxl-7 col-sm-8 m-0 p-0">
 
 
-            <img src="./assets/woman.png" alt="" class="rounded mx-auto img-fluid d-block">
+            <img th:src="@{/assets/woman.png}" alt="" class="rounded mx-auto img-fluid d-block">
 
 
 
@@ -62,18 +62,18 @@
 
                 <div class="mb-3">
 
-                  <input id="email" name="email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                  <input id="email" name="email" type="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="mb-3">
-                  <input id="pass" name="pass"  type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+                  <input id="pass" name="pass"  type="password" class="form-control"  placeholder="Senha">
                 </div>
                 <div class="mb-3 d-flex justify-content-end">
-                  <a th:href="@{/forget}" href="./forget.html">Esqueci a senha</a>
+                  <a th:href="@{forget}" >Esqueci a senha</a>
 
                 </div>
                 <button type="submit" class="btn btn-outline-secondary">Entrar</button>
                 <div class="mb-3 mt-3 d-flex justify-content-start">
-                  <a th:href="@{/register}" href="./index.html">Não tenho conta</a>
+                  <a th:href="@{register}" >Não tenho conta</a>
 
                 </div>
               </form>
@@ -95,16 +95,16 @@
 
   </main>
 
-  <footer class="container-fluid text-white" style="background:var(--dark-100)">
+  <footer class="container-fluid text-white" >
     <div class="container"> 
                 <div class="row align-items-center  justify-content-center">
                     <div class="col-sm-4 col-md-6">
-                        <img src="./assets/cropped-img-logo-FT.png"
+                        <img th:src="@{/assets/cropped-img-logo-FT.png}"
                             class="logo-icon " alt="">
                     </div>
                     <div class="col-sm-4 col-md-3">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="">KonoPlace + First tech</a>
+                            <a class="nav-link" aria-current="page" >KonoPlace + First tech</a>
                         </li>
                     </div>
 

@@ -37,8 +37,9 @@ public class ReservaController {
     public ModelAndView profileScreen()
     {
         ModelAndView model = new ModelAndView(); 
+        List<ReservaModel> reservas = repository.findAll();
         model.setViewName("reserve.html");
-        model.addObject("reserva", getReserva());
+        model.addObject("reserva", reservas);
         return model;
     }
 

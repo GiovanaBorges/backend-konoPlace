@@ -1,6 +1,7 @@
 package com.konoPlace.konoplace.services;
 
 
+import com.konoPlace.konoplace.dto.UserRegisterDTO;
 import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +25,8 @@ public class UserService {
 
     private String encryptPass(String pass){
         BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
-        return encrypt.encode(pass);
+        String encoder = encrypt.encode(pass);
+        return encoder;
     }
 
     private boolean comparePass(String newpass,String pass){
@@ -63,21 +63,30 @@ public class UserService {
     }
 
 
-    public ResponseEntity registerUser(UserModel newUser){
+    public ResponseEntity<UserModel> registerUser(UserModel newUser){
         Optional<UserModel> optUser = userRepo.findByEmail(newUser.getEmail());
 
-        if(optUser.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user already exist");
-        }else{
-            UserModel user = new UserModel();
-            user.setNome(newUser.getNome());
-            user.setCargo(newUser.getCargo());
-            user.setDepartamento(newUser.getDepartamento());
-            user.setTelefone(newUser.getTelefone());
-            user.setSenha(encryptPass(newUser.getSenha()));
-
-            return ResponseEntity.status(200).body(userRepo.save(user));
+        try{
+            if(optUser.isPresent()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user already exist");
+            }else{
+                UserModel user = new UserModel();
+                user.setNome(newUser.getNome());
+                user.setCargo(newUser.getCargo());
+                user.setDepartamento(newUser.getDepartamento());
+                user.setTelefone(newUser.getTelefone());
+                user.setSenha(encryptPass(newUser.getSenha()));
+                user.setEmail(newUser.getEmail());
+                user.setFoto(newUser.getFoto());
+                
+                return ResponseEntity.status(200).body(userRepo.save(user));
+            }
+        }catch(Error e){
+           
         }
+        return null;
+
+      
     }
 
 }

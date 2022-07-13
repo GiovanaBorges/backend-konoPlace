@@ -36,10 +36,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
         .authorizeRequests().antMatchers("/user/login" , "/css/**", "/js/**", "/assets/**",
         "/user/register" , "/user/**" , "/mesa/**" , "/reserva/**").permitAll().and()
-        .httpBasic();
-                
-
-               
+        .httpBasic();               
     }
 
 }

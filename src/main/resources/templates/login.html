@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -45,7 +45,8 @@
   <main>
     <div class="container-fluid">
       <div class="container">
-        <div class="row align-items-center justify-content-center m-0 p-0" th:style="@{background-color: var(--bg-dark);}">
+        <div class="row align-items-center justify-content-center m-0 p-0"
+          th:style="@{background-color: var(--bg-dark);}">
           <div class="col-md-7 col-xl-7 col-xxl-7 col-sm-8 m-0 p-0">
 
 
@@ -57,7 +58,7 @@
 
           <div class="col-md-5 col-xl-5 col-xxl-5  col-sm-8">
             <div class="row align-items-center justify-content-center">
-              <form>
+              <form action="/login" method="GET">
                 <h1 class="mb-3">Login</h1>
 
                 <div class="mb-3">
@@ -65,15 +66,15 @@
                   <input id="email" name="email" type="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="mb-3">
-                  <input id="pass" name="pass"  type="password" class="form-control"  placeholder="Senha">
+                  <input id="pass" name="senha" type="password" class="form-control" placeholder="Senha">
                 </div>
                 <div class="mb-3 d-flex justify-content-end">
-                  <a th:href="@{forget}" >Esqueci a senha</a>
+                  <a th:href="@{forget}">Esqueci a senha</a>
 
                 </div>
                 <button type="submit" class="btn btn-outline-secondary">Entrar</button>
                 <div class="mb-3 mt-3 d-flex justify-content-start">
-                  <a th:href="@{register}" >Não tenho conta</a>
+                  <a th:href="@{register}">Não tenho conta</a>
 
                 </div>
               </form>
@@ -95,52 +96,49 @@
 
   </main>
 
-  <footer class="container-fluid text-white" >
-    <div class="container"> 
-                <div class="row align-items-center  justify-content-center">
-                    <div class="col-sm-4 col-md-6">
-                        <img th:src="@{/assets/cropped-img-logo-FT.png}"
-                            class="logo-icon " alt="">
-                    </div>
-                    <div class="col-sm-4 col-md-3">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" >KonoPlace + First tech</a>
-                        </li>
-                    </div>
+  <footer class="container-fluid text-white">
+    <div class="container">
+      <div class="row align-items-center  justify-content-center">
+        <div class="col-sm-4 col-md-6">
+          <img th:src="@{/assets/cropped-img-logo-FT.png}" class="logo-icon " alt="">
+        </div>
+        <div class="col-sm-4 col-md-3">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page">KonoPlace + First tech</a>
+          </li>
+        </div>
 
-                    <div class="col-sm-2 col-md-2">
+        <div class="col-sm-2 col-md-2">
 
-                        <div class="row align-items-center">
+          <div class="row align-items-center">
 
-                            <li class="nav-item col-md-4 col-sm-3">
-                                <a href="https://www.instagram.com/firsttechbr/" target=_blank
-                                    class="nav-link text-white mx-3"><img
-                                        src="https://img.icons8.com/fluency/30/undefined/instagram-new.png" /></a>
-                            </li>
+            <li class="nav-item col-md-4 col-sm-3">
+              <a href="https://www.instagram.com/firsttechbr/" target=_blank class="nav-link text-white mx-3"><img
+                  src="https://img.icons8.com/fluency/30/undefined/instagram-new.png" /></a>
+            </li>
 
 
 
 
 
-                            <li class="nav-item col-md-6 col-sm-4">
-                                <a href="https://www.linkedin.com/company/first-tech/mycompany/"
-                                    target=_blank class="nav-link text-white ">
-                                    <img
-                                        src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
-                            </li>
+            <li class="nav-item col-md-6 col-sm-4">
+              <a href="https://www.linkedin.com/company/first-tech/mycompany/" target=_blank
+                class="nav-link text-white ">
+                <img src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
+            </li>
 
 
 
 
-                     
 
 
-                    </div>
 
-                </div>
-                </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-</footer>
+  </footer>
 
   <!-- JavaScript Bundle with Popper -->
   <script th:src="@{/js/trocarcordefundo.js}"></script>

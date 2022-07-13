@@ -64,12 +64,6 @@ public class UserService {
 
 
     public ResponseEntity<UserModel> registerUser(UserModel newUser){
-        Optional<UserModel> optUser = userRepo.findByEmail(newUser.getEmail());
-
-        try{
-            if(optUser.isPresent()){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user already exist");
-            }else{
                 UserModel user = new UserModel();
                 user.setNome(newUser.getNome());
                 user.setCargo(newUser.getCargo());
@@ -80,13 +74,6 @@ public class UserService {
                 user.setFoto(newUser.getFoto());
                 
                 return ResponseEntity.status(200).body(userRepo.save(user));
-            }
-        }catch(Error e){
-           
-        }
-        return null;
-
-      
     }
 
 }

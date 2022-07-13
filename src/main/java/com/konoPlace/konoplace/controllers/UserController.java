@@ -72,15 +72,28 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<UserModel> createUser(@RequestBody UserModel user,HttpServletResponse httpResponse) throws Exception{
+    public ModelAndView createUser(@RequestBody UserModel user) {
+        /* 
         
         Optional<UserModel> userModel = repository.findByEmail(user.getEmail());
         if(userModel.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "This user already exists!");
         }else{
-            httpResponse.sendRedirect("/mesa");
+            
             return userService.registerUser(user);
         }
+        
+        */
+        ModelAndView mv = new ModelAndView(); 
+        mv.setViewName("home.html");
+        userService.registerUser(user);
+        return mv;
+    }
+
+    @PostMapping("/login")
+    public ModelAndView login(@RequestBody UserLogin user)
+    {
+        return userService.loginUser(user);
         
     }
 

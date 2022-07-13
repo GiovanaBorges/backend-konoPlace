@@ -37,11 +37,6 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
-<<<<<<< HEAD
-        .authorizeRequests().antMatchers("/user/login" , "/css/**", "/js/**", "/assets/**",
-        "/user/register" , "/user/**" , "/mesa/**" , "/reserva/**").permitAll().and()
-        .httpBasic();               
-=======
         .authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**" , "/user/**" , "/mesa/**" , "/reserva/**" 
         , "/user/register", "/user/login").permitAll().and()
         .formLogin()
@@ -55,7 +50,6 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 
 
                
->>>>>>> ef9b86ab188907cc4ea3fb723fc6e452bc23a13c
     }
 
 }

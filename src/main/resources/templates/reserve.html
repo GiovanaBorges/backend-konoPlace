@@ -49,8 +49,13 @@
         <a th:href="@{/user/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
         <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
       </div>
-      
-      <div class="d-flex align-items-center align-content-center mt-5 "  th:each="reservation : ${reserva}">
+
+      <!--
+      <div th:if="${reserva=null and reserva.empty}">
+        <td colspan="5">Parece que você ainda não têm reservas!</td>
+      </div>
+      -->
+      <div class="d-flex align-items-center align-content-center mt-5 "  th:each="reservation : ${reserve}">
         <div class="card m-auto" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Reserva</h5>
@@ -74,9 +79,9 @@
             <a th:href="@{/mesa}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
             <div class="d-flex mt-3">
               <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
-                style="width:50%;">Editar</a>
+                th:style="width:50%;">Editar</a>
               <a href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
-                style="width:50%;">Cancelar</a>
+                th:style="width:50%;">Cancelar</a>
             </div>
   
           </div>
@@ -111,9 +116,6 @@
                             </li>
 
 
-
-
-
                             <li class="nav-item col-md-6 col-sm-4">
                                 <a href="https://www.linkedin.com/company/first-tech/mycompany/"
                                     target=_blank class="nav-link text-white ">
@@ -121,10 +123,6 @@
                                         src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
                             </li>
 
-
-
-
-                     
 
                         <div class="row align-items-center">
 
@@ -197,7 +195,6 @@
       </div>
     </div>
   </div>
-
 
   <script th:src="@{/js/trocarcordefundo.js}"></script>
   <script th:src="@{/js/js.js}"></script>

@@ -1,14 +1,11 @@
 package com.konoPlace.konoplace.controllers;
 
-import com.konoPlace.konoplace.dto.UserRegisterDTO;
 import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import com.konoPlace.konoplace.services.UserService;
 
-import ch.qos.logback.core.status.Status;
-
-import org.apache.catalina.connector.Response;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -41,8 +37,9 @@ public class UserController {
 
     @GetMapping("/register")
     public ModelAndView  registerScreen(){
-        ModelAndView model = new ModelAndView("index.html"); 
-        model.addObject("morte" , "aaaaaaaaaaaaa");
+        ModelAndView model = new ModelAndView("index.html");
+        UserModel user = new UserModel();
+        model.addObject("userModel",user);
         return model;
     }
 
@@ -51,6 +48,8 @@ public class UserController {
     {
         ModelAndView model = new ModelAndView(); 
         model.setViewName("login.html");
+        UserLogin user = new UserLogin();
+        model.addObject("userLogin" , user);
         return model;
     }
 
@@ -65,36 +64,21 @@ public class UserController {
     @GetMapping("/perfil")
     public ModelAndView perfilScreen()
     {
-        ModelAndView model = new ModelAndView(); 
+        ModelAndView model = new ModelAndView();
         model.setViewName("perfil.html");
         return model;
     }
 
 
     @PostMapping("/register")
-    public ModelAndView createUser(@RequestBody UserModel user) {
-        /* 
-        
-        Optional<UserModel> userModel = repository.findByEmail(user.getEmail());
-        if(userModel.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "This user already exists!");
-        }else{
-            
-            return userService.registerUser(user);
-        }
-        
-        */
-        ModelAndView mv = new ModelAndView(); 
-        mv.setViewName("home.html");
-        userService.registerUser(user);
-        return mv;
+    public void createUser(@ModelAttribute UserModel user , HttpServletResponse response) {
+            userService.registerUser(user,response);
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestBody UserLogin user)
+    public void login(@ModelAttribute UserLogin user , HttpServletResponse response)
     {
-        return userService.loginUser(user);
-        
+        userService.loginUser(user, response);
     }
 
     @PutMapping

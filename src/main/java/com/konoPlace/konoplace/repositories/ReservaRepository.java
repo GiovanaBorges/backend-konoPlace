@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ReservaRepository extends JpaRepository<ReservaModel,Long> {
     public Optional<ReservaModel> findByDate(String email);
+
+    public Optional<ReservaModel> findByUser(Optional<UserModel> user);
 }

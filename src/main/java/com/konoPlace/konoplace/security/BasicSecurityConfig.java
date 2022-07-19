@@ -38,13 +38,13 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
         .authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**" , "/user/**" , "/mesa/**" , "/reserva/**" 
-        , "/user/register", "/user/login").permitAll().and()
+        ).permitAll().and()
         .formLogin()
         .loginPage("/user/login")
-        .loginProcessingUrl("/login")
+        .loginProcessingUrl("/user/login")
         .usernameParameter("email")
         .passwordParameter("pass")
-        .defaultSuccessUrl("/mesa", true)
+        .defaultSuccessUrl("/mesa" ,true).failureForwardUrl("/login")
 .permitAll();
         
                 

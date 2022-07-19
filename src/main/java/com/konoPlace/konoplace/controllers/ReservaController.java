@@ -3,13 +3,17 @@ package com.konoPlace.konoplace.controllers;
 import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.ReservaRepository;
+import com.konoPlace.konoplace.repositories.UserRepository;
+import com.konoPlace.konoplace.services.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -20,6 +24,11 @@ public class ReservaController {
     @Autowired
     private ReservaRepository repository;
 
+    @Autowired
+    private UserRepository repoUser;
+
+    @Autowired
+    private CookieService cookieService;
 
     @GetMapping
     public ResponseEntity<List<ReservaModel>> getReserva(){
@@ -34,16 +43,19 @@ public class ReservaController {
     }
 
     @GetMapping("/reservas")
-    public ModelAndView profileScreen()
+    public ModelAndView profileScreen(HttpServletRequest request)
     {
-        ModelAndView model = new ModelAndView(); 
-        List<ReservaModel> reservas = repository.findAll();
+        ModelAndView model = new ModelAndView();
         model.setViewName("reserve.html");
-        model.addObject("reserva", reservas);
+        String idUser = cookieService.readCookie(request);
+
+        Optional<UserModel> user = repoUser.findById(Long.valueOf(idUser));
+        Optional<ReservaModel> reservas = repository.findByUser(user);
+
+        model.addObject("reserve", reservas);
         return model;
     }
 
-   
 
     @GetMapping("/perfil")
     public ModelAndView  perfil(){

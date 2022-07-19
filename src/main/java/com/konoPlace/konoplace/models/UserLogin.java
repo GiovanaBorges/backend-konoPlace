@@ -4,7 +4,7 @@ public class UserLogin {
     private Long id;
     private String email;
     private String pass;
-    private String token;
+
 
     public Long getId() {
         return id;
@@ -30,12 +30,5 @@ public class UserLogin {
         this.pass = senha;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
 }

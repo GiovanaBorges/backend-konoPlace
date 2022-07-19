@@ -57,38 +57,35 @@
         <div class="col-md-6 col-sm-7 col-xl-6 col-xxl-6">
 
           <div class="container-fluid">
-            <form class="m-5 needs-validation" method="POST" action="register">
+            <form class="m-5 needs-validation" method="POST" th:action="@{register}" th:object="${userModel}">
               <h1 class="mb-3">Cadastro</h1>
-              <h1 class="mb-3" th:text="${morte}"></h1>
+
               <div class="mb-3">
-                <input id="name" name="nome" type="text" class="form-control" aria-describedby="emailHelp"
+                <input th:field="*{nome}" id="name" name="nome" type="text" class="form-control" aria-describedby="emailHelp"
                   placeholder="Nome Completo" required>
               </div>
               <div class="mb-3 has-validation">
-                <input id="validationCustom03" name="cargo" type="text" class="form-control"
+                <input th:field="*{cargo}" id="validationCustom03" name="cargo" type="text" class="form-control"
                   aria-describedby="emailHelp" placeholder="Cargo" required>
-                <div class="invalid-feedback">
-                  Please choose a username.
-                </div>
               </div>
               <div class="mb-3">
-                <input id="departamento" name="departamento" type="text" class="form-control"
+                <input th:field="*{departamento}" id="departamento" name="departamento" type="text" class="form-control"
                   placeholder="Departamento">
               </div>
               <div class="mb-3">
-                <input id="phone" name="telefone" type="text" class="form-control" placeholder="Telefone">
+                <input th:field="*{telefone}" id="phone" name="telefone" type="text" class="form-control" placeholder="Telefone">
               </div>
               <div class="mb-3">
-                <input id="email" name="email" type="email" class="form-control" placeholder="Email">
+                <input th:field="*{email}" id="email" name="email" type="email" class="form-control" placeholder="Email">
               </div>
               <div class="mb-3">
-                <input id="foto" name="foto" type="text" class="form-control" placeholder="Link foto">
+                <input th:field="*{foto}" id="foto" name="foto" type="text" class="form-control" placeholder="Link foto">
               </div>
               <div class="mb-3">
                 <input id="pass" name="pass" type="password" class="form-control" placeholder="Senha">
               </div>
               <div class="mb-3">
-                <input id="pass-confirm" name="password" type="password" class="form-control"
+                <input th:field="*{senha}" id="pass-confirm" name="senha" type="password" class="form-control"
                   placeholder="Confirmar Senha">
               </div>
 

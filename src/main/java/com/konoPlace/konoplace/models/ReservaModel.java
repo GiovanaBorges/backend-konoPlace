@@ -1,17 +1,13 @@
 package com.konoPlace.konoplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import antlr.collections.List;
 import lombok.Data;
 
 import javax.persistence.*;
-
-
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Table(name="reserva")
 @Entity
@@ -29,6 +25,7 @@ public class ReservaModel {
     @JsonIgnoreProperties("reserva")
     private MesaModel mesa;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
 }

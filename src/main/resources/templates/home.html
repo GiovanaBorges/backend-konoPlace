@@ -307,16 +307,18 @@
     function verify(e, reserva) {
       e.preventDefault();
       const date = e.target.fdate_reservation.value;
-      alert(date)
-      console.log(reserva)
+      console.log(" data " +  date)
+      console.log(" reserva"+ reserva)
 
       reserva.map(resp => {
         resp.date == date ?
           (document.querySelector(`#${resp.mesa.name}`).classList.remove("place_empty"),
-            document.querySelector(`#${resp.mesa.name}`).classList.add("place_kono")
-          )
+            document.querySelector(`#${resp.mesa.name}`).classList.add("place_kono"),
+            console.log("different" + resp.date)
+            )
           :
           (document.querySelector(`#${resp.mesa.name}`).classList.remove("place_kono"),
+          console.log("equal" + resp.date),
             document.querySelector(`#${resp.mesa.name}`).classList.add("place_empty")
           )
 
@@ -329,7 +331,7 @@
   <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
     data-bs-keyboard="false">
     <div class="modal-dialog">
-      <div class="modal-content" style="background-color: var(--dark-100)">
+      <div class="modal-content" th:style="@{background-color: var(--dark-100);}">
         <div class="modal-header">
           <h5 class="modal-title" id="modalInfo">Deseja reservar mesa?</h5>
           <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
@@ -350,7 +352,7 @@
     </div>
   </div>
 
-  <footer class="container-fluid text-white container-sm" th:style="@{background:var(--dark-100)}">
+  <footer class="container-fluid text-white container-sm" th:style="@{background-color:var(--dark-100)}">
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-sm-4 col-md-6">

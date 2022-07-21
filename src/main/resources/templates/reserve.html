@@ -21,7 +21,7 @@
 <body>
   <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
+      <a class="navbar-brand text-white" th:href="@{/mesa}"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,7 +47,7 @@
     <div class="container-fluid reserve_space">
       <div class="d-grid gap-2 d-md-flex justify-content-center">
         <a th:href="@{/user/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
-        <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
+        <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" th:style="@{border-bottom: 2px solid var(--red);}">Reservas</a>
       </div>
 
       <!--
@@ -55,35 +55,31 @@
         <td colspan="5">Parece que você ainda não têm reservas!</td>
       </div>
       -->
-      <div class="d-flex align-items-center align-content-center mt-5 "  th:each="reservation : ${reserve}">
+      <div class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
+        <form method="GET" th:action="@{/${reservas.id}" id="">
         <div class="card m-auto" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Reserva</h5>
-         
             <div class="card-text mt-2 d-flex">
-              Mesa nome : 
-              <p class="card-text mx-2" id="date_reserve"  th:text="${reservation.mesa.name}"></p>
+              Mesa nome :
+              <p class="card-text mx-2" id="mesa_identify"  th:text="${reservas.mesa.name}"></p>
             </div>
             <div class="card-text mt-2 d-flex">
-              Data reserva:
-              <p class="card-text mx-2" id="reserve_information" th:text="${reservation.date}"></p>
+              Data da reserva
+              <p class="card-text mx-2" id="date_reserve"  th:text="${reservas.date}"></p>
             </div>
-
-            <div class="card-text mt-2">
-              Periféricos inclusos:
-              <div class="card-text"  th:each="perife : ${reservation.mesa.perifericos}" >
-                <p class="card-text mt-3 text-center" id="perifericos" th:text="${perife}" ></p>
-              </div>
+            <div class="card-text mt-2 d-flex" >
+              Incluso na mesa :
             </div>
-            
+            <p class="d-flex flex-column  align-items-center card-text mx-2" id="perife" th:each="perife :${reservas.mesa.perifericos}" th:text="${perife}"></p>
             <a th:href="@{/mesa}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
             <div class="d-flex mt-3">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
-                th:style="width:50%;">Editar</a>
-              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
-                th:style="width:50%;">Cancelar</a>
+              <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
+                style="width:50%;">Editar</a>
+              <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
+                style="width:50%;">Cancelar</a>
             </div>
-  
+        </form>
           </div>
         </div>
       </div>
@@ -179,6 +175,8 @@
           <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             onclick="cleanModal()"></button>
         </div>
+        <form method="delete" action="/delete/${}">
+
         <h6 id="place_data">
           Reserva : 30/06/2022
         </h6>
@@ -195,6 +193,13 @@
       </div>
     </div>
   </div>
+
+  <script th:inline="javascript">
+    document.querySelector("#id-checkbox").addEventListener("submit", function(event) {
+         event.preventDefault();
+}, false);
+
+  </script>
 
   <script th:src="@{/js/trocarcordefundo.js}"></script>
   <script th:src="@{/js/js.js}"></script>

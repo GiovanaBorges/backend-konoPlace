@@ -72,7 +72,7 @@ public class MesaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(mesa));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void DeleteMesa(@PathVariable Long id){
         repository.deleteById(id);
     }

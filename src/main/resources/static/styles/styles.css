@@ -166,6 +166,7 @@ a:hover {
 
 .place_kono{
     background-color: var(--red);
+    cursor: default;
 }
 
 

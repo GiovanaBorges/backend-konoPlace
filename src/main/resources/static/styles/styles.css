@@ -155,12 +155,9 @@ a:hover {
   background-color: var(--gray-50);
 }
 
-.place:hover {
-  cursor: pointer;
-}
-
 .place_empty {
   background-color: var(--green);
+  cursor: pointer;
 }
 
 
@@ -168,7 +165,6 @@ a:hover {
     background-color: var(--red);
     cursor: default;
 }
-
 
 .table-right {
   background-color: var(--text);

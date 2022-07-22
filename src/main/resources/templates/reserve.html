@@ -55,9 +55,9 @@
         <td colspan="5">Parece que você ainda não têm reservas!</td>
       </div>
       -->
-      <div class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
-        <form method="GET" th:action="@{/${reservas.id}" id="">
-        <div class="card m-auto" style="width: 18rem;">
+      <form class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
+
+        <div class="card m-auto" style="width: 18rem;" >
           <div class="card-body">
             <h5 class="card-title">Reserva</h5>
             <div class="card-text mt-2 d-flex">
@@ -79,10 +79,10 @@
               <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
                 style="width:50%;">Cancelar</a>
             </div>
-        </form>
-          </div>
+
         </div>
       </div>
+      </form>
     </div>
   </main>
 
@@ -147,7 +147,7 @@
           <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">
             <h6 class="">Escolha a nova data:</h6>
             <input type="date" class="form-control" id="date_reservation" name="fdate_reservation"
-              th:style="@{width:50%;background-color:var(--bg)}">
+              th:style="@{width:50%;background-color:var(--bg);}">
             <button type="submit" class="btn btn-outline-danger mb-3 mt-3" th:style="@{width:50%;}">Verificar disponibilidade</button>
           </form>
         </h6>

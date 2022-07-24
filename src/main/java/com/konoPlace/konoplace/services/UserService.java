@@ -42,10 +42,12 @@ public class UserService {
 
     public ModelAndView loginUser(UserLogin userlogin){
         Optional<UserModel> userCompare = userRepo.findByEmail(userlogin.getEmail());
+        Optional<UserModel> user = userRepo.findByEmail(userCompare.get().getEmail());
         ModelAndView model = new ModelAndView(); 
+
         
         
-        if(userCompare.isEmpty()){
+        if(user.isEmpty()){
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
         }else{
             if(comparePass(userlogin.getPass(), userCompare.get().getSenha())){

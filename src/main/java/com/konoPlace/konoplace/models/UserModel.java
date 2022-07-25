@@ -2,6 +2,7 @@ package com.konoPlace.konoplace.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,12 +23,12 @@ public class UserModel {
     private String nome;
 
     @NotNull(message = "O atributo Email é obrigatório")
+    @Column(unique=true ,nullable = false)
     private String email;
 
     @NotNull
     private String cargo;
 
-    
     private String foto;
 
     @NotNull

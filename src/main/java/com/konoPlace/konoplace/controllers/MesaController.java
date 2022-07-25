@@ -34,11 +34,13 @@ public class MesaController {
 
     @GetMapping()
     public ModelAndView getMesaModel(){
-        ModelAndView model = new ModelAndView("home"); 
+        ModelAndView model = new ModelAndView("home");
+        ReservaModel reservamodel = new ReservaModel();
         List<MesaModel> mesas = repository.findAll();
         List<ReservaModel> reserva = reservaRepository.findAll();
         model.addObject("place" , mesas);
         model.addObject("reservas" , reserva);
+        model.addObject("reservaModel" , reservamodel);
         return model;
     }
 
@@ -72,7 +74,7 @@ public class MesaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(mesa));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void DeleteMesa(@PathVariable Long id){
         repository.deleteById(id);
     }

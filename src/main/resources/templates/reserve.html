@@ -21,7 +21,7 @@
 <body>
   <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
+      <a class="navbar-brand text-white" th:href="@{/mesa}"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,11 +32,11 @@
           <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
             alt="logout" />
 
-          <a th:href="@{/mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
+          <a th:href="@{mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
               alt="schedule"></a>
-          <a th:href="@{/user/perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
+          <a th:href="@{perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
               alt="user profile" /></a>
-          <a th:href="@{/user/login}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
+          <a th:href="@{login}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
               alt="logout" /></a> </span>
       </div>
     </div>
@@ -46,42 +46,49 @@
 
     <div class="container-fluid reserve_space">
       <div class="d-grid gap-2 d-md-flex justify-content-center">
-        <a th:href="@{/user/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
-        <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" style="border-bottom: 2px solid var(--red);">Reservas</a>
+        <a th:href="@{perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
+        <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" th:style="@{border-bottom: 2px solid var(--red);}">Reservas</a>
       </div>
-      
-      <div class="d-flex align-items-center align-content-center mt-5 "  th:each="reservation : ${reserva}">
-        <div class="card m-auto" style="width: 18rem;">
+
+
+      <div th:if="${reserva==null}">
+        <div>
+          <td colspan="5">Parece que você ainda não têm reservas!</td>
+        </div>
+
+      </div>
+
+
+
+
+      <form class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
+
+        <div class="card m-auto" style="width: 18rem;" >
           <div class="card-body">
             <h5 class="card-title">Reserva</h5>
-         
             <div class="card-text mt-2 d-flex">
-              Mesa nome : 
-              <p class="card-text mx-2" id="date_reserve"  th:text="${reservation.mesa.name}"></p>
+              Mesa nome :
+              <p class="card-text mx-2" id="mesa_identify"  th:text="${reservas.mesa.name}"></p>
             </div>
             <div class="card-text mt-2 d-flex">
-              Data reserva:
-              <p class="card-text mx-2" id="reserve_information" th:text="${reservation.date}"></p>
+              Data da reserva
+              <p class="card-text mx-2" id="date_reserve"  th:text="${reservas.date}"></p>
             </div>
-
-            <div class="card-text mt-2">
-              Periféricos inclusos:
-              <div class="card-text"  th:each="perife : ${reservation.mesa.perifericos}" >
-                <p class="card-text mt-3 text-center" id="perifericos" th:text="${perife}" ></p>
-              </div>
+            <div class="card-text mt-2 d-flex" >
+              Incluso na mesa :
             </div>
-            
+            <p class="d-flex flex-column  align-items-center card-text mx-2" id="perife" th:each="perife :${reservas.mesa.perifericos}" th:text="${perife}"></p>
             <a th:href="@{/mesa}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
             <div class="d-flex mt-3">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
+              <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
                 style="width:50%;">Editar</a>
-              <a href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
+              <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
                 style="width:50%;">Cancelar</a>
             </div>
-  
-          </div>
+
         </div>
       </div>
+      </form>
     </div>
   </main>
 
@@ -111,9 +118,6 @@
                             </li>
 
 
-
-
-
                             <li class="nav-item col-md-6 col-sm-4">
                                 <a href="https://www.linkedin.com/company/first-tech/mycompany/"
                                     target=_blank class="nav-link text-white ">
@@ -121,10 +125,6 @@
                                         src="https://img.icons8.com/color/30/undefined/linkedin.png" /></a>
                             </li>
 
-
-
-
-                     
 
                         <div class="row align-items-center">
 
@@ -153,7 +153,7 @@
           <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">
             <h6 class="">Escolha a nova data:</h6>
             <input type="date" class="form-control" id="date_reservation" name="fdate_reservation"
-              th:style="@{width:50%;background-color:var(--bg)}">
+              th:style="@{width:50%;background-color:var(--bg);}">
             <button type="submit" class="btn btn-outline-danger mb-3 mt-3" th:style="@{width:50%;}">Verificar disponibilidade</button>
           </form>
         </h6>
@@ -181,6 +181,8 @@
           <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             onclick="cleanModal()"></button>
         </div>
+        <form method="delete" action="/delete/${}">
+
         <h6 id="place_data">
           Reserva : 30/06/2022
         </h6>
@@ -198,6 +200,12 @@
     </div>
   </div>
 
+  <script th:inline="javascript">
+    document.querySelector("#id-checkbox").addEventListener("submit", function(event) {
+         event.preventDefault();
+}, false);
+
+  </script>
 
   <script th:src="@{/js/trocarcordefundo.js}"></script>
   <script th:src="@{/js/js.js}"></script>

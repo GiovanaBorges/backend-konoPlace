@@ -33,7 +33,7 @@
             alt="logout" />
           <a th:href="@{mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
               alt="schedule" /></a>
-          <a th:href="@{user/perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png"
+          <a th:href="@{perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png"
               class="icon mx-3" alt="user profile" /></a>
 
           <a th:href="@{perfil}"><img src="https://img.icons8.com/ios/24/F97A2D/exit.png " class="icon mx-4"
@@ -291,37 +291,59 @@
       createModal(result[0])
     }
 
-
     function createModal(place) {
       document.querySelector("#place_name").textContent += `Nome da mesa : ${place.name}`
       document.querySelector("#place_info").textContent += `Perifericos inclusos : ${place.perifericos.map(resp => {
         return ` ${resp} `
       })}`
+      return getPlaceInfo(place)
     }
+
+    function getPlaceInfo(name){
+      return console.log(name.id)
+    }
+
+
 
     function cleanModal() {
       document.querySelector("#place_name").textContent = " "
       document.querySelector("#place_info").textContent = " "
     }
 
+
+    function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate() + 1),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('-');
+  }
+
     function verify(e, reserva) {
       e.preventDefault();
-      const date = e.target.fdate_reservation.value;
-      alert(date)
-      console.log(reserva)
+      let date = e.target.fdate_reservation.value;
+      const data = new Date(date);
+      date = formatDate(data);
+      console.log(" data " +  date)
+      console.log(" reserva"+ reserva)
 
       reserva.map(resp => {
         resp.date == date ?
           (document.querySelector(`#${resp.mesa.name}`).classList.remove("place_empty"),
-            document.querySelector(`#${resp.mesa.name}`).classList.add("place_kono")
-          )
+            document.querySelector(`#${resp.mesa.name}`).classList.add("place_kono"),
+          console.log(`equal ${resp.date} == ${date}  + ${resp.mesa.name}`)
+            )
           :
           (document.querySelector(`#${resp.mesa.name}`).classList.remove("place_kono"),
+          console.log("different" + resp.date + " == " + date),
             document.querySelector(`#${resp.mesa.name}`).classList.add("place_empty")
           )
 
       })
-
     }
   </script>
 
@@ -329,14 +351,22 @@
   <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
     data-bs-keyboard="false">
     <div class="modal-dialog">
-      <div class="modal-content" style="background-color: var(--dark-100)">
+      <div class="modal-content" th:style="@{background-color: var(--dark-100);}">
         <div class="modal-header">
           <h5 class="modal-title" id="modalInfo">Deseja reservar mesa?</h5>
           <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             th:onclick="cleanModal()"></button>
         </div>
-        <h6 id="place_name" class="p-2"></h6>
-        <h6 class="modal-body m-0 p-2" id="place_info"></h6>
+        <form action="" th:object="${reservaModel}">
+        <h6 id="place_name" class="p-2" ></h6>
+        <h6 class="modal-body m-0 p-2" id="place_info" ></h6>
+        <h6 th:field="*{getPlaceInfo}"></h6>
+          <h6 class="">Escolha a data de sua reserva:</h6>
+          <input type="date" class="form-control" id="date" th:style="@{width:auto}" />
+          <button type="submit" class="btn btn-outline-danger mb-3 mt-3">
+            Reservar
+          </button>
+        </form>
         <div class="modal-footer d-flex justify-content-center">
           <button type="submit" class="btn btn-outline-success" th:style="@{width:50%;}">
             Salvar
@@ -350,7 +380,7 @@
     </div>
   </div>
 
-  <footer class="container-fluid text-white container-sm" th:style="@{background:var(--dark-100)}">
+  <footer class="container-fluid text-white container-sm" th:style="@{background-color:var(--dark-100)}">
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-sm-4 col-md-6">

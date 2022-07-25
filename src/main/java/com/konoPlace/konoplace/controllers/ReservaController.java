@@ -3,13 +3,17 @@ package com.konoPlace.konoplace.controllers;
 import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.ReservaRepository;
+import com.konoPlace.konoplace.repositories.UserRepository;
+import com.konoPlace.konoplace.services.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -20,6 +24,11 @@ public class ReservaController {
     @Autowired
     private ReservaRepository repository;
 
+    @Autowired
+    private UserRepository repoUser;
+
+    @Autowired
+    private CookieService cookieService;
 
     @GetMapping
     public ResponseEntity<List<ReservaModel>> getReserva(){
@@ -28,22 +37,39 @@ public class ReservaController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReservaModel> getReservaById(@PathVariable Long id){
-        return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-                .orElse(ResponseEntity.notFound().build());
+    public Optional<ReservaModel> getReservaById(@PathVariable Long id){
+        ModelAndView mv = new ModelAndView("reserva.html");
+        return repository.findById(id);
     }
 
     @GetMapping("/reservas")
-    public ModelAndView profileScreen()
+    public ModelAndView profileScreen(HttpServletRequest request)
     {
-        ModelAndView model = new ModelAndView(); 
-        List<ReservaModel> reservas = repository.findAll();
+        ModelAndView model = new ModelAndView();
         model.setViewName("reserve.html");
-        model.addObject("reserva", reservas);
+
+        Cookie[] cookie = null;
+        Cookie cookies = null;
+        cookie = request.getCookies();
+
+        Optional<Cookie> result = Arrays.stream(cookie).findFirst();
+        Long id = Long.parseLong(result.get().getValue());
+        Optional<UserModel> user = repoUser.findById(id);
+
+        UserModel userModel = new UserModel();
+        userModel.setEmail(user.get().getEmail());
+        userModel.setSenha(user.get().getSenha());
+        userModel.setId(user.get().getId());
+        userModel.setReserva(user.get().getReserva());
+        userModel.setCargo(user.get().getCargo());
+        userModel.setDepartamento(user.get().getDepartamento());
+        userModel.setFoto(user.get().getFoto());
+        userModel.setTelefone(user.get().getTelefone());
+
+        model.addObject("reservable", userModel.getReserva());
         return model;
     }
 
-   
 
     @GetMapping("/perfil")
     public ModelAndView  perfil(){
@@ -54,6 +80,8 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<ReservaModel> createReserva(@RequestBody ReservaModel reservation){
+        //DateTime dateTime = new DateTime(reservation.getDate());
+        //reservation.setDate(dateTime.plusDays(1).toDate());
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(reservation));
     }
 

@@ -3,6 +3,7 @@ package com.konoPlace.konoplace.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,19 +16,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Configuration
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailsService userDetailsService;
 
-    /*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)  throws Exception{
-        auth.userDetailsService(userDetailsService);
+    final UserDetailsService userDetailsService;
 
-        auth.inMemoryAuthentication().withUser("root").password(passwordEncoder().encode("root"))
-                .authorities("ROLE_ADMIN");
+    public BasicSecurityConfig(UserDetailsServiceImpl userDetailsService){
+        this.userDetailsService = userDetailsService;
     }
 
-    /* */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)  throws Exception{
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -36,20 +36,16 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-        .authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**" , "/user/**" , "/mesa/**" , "/reserva/**" 
-        , "/user/register", "/user/login").permitAll().and()
-        .formLogin()
-        .loginPage("/user/login")
-        .loginProcessingUrl("/login")
-        .usernameParameter("email")
-        .passwordParameter("pass")
-        .defaultSuccessUrl("/mesa", true)
-.permitAll();
-        
-                
+        http
+                .authorizeRequests()
+                .antMatchers("/styles/**","/js/**","/assets/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and();
 
-               
     }
 
 }

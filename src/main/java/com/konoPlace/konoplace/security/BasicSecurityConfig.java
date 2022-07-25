@@ -18,7 +18,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    /*
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth)  throws Exception{
         auth.userDetailsService(userDetailsService);
@@ -27,7 +27,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities("ROLE_ADMIN");
     }
 
-    /* */
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -36,7 +36,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
+        http
         .authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**" , "/user/**" , "/mesa/**" , "/reserva/**"
         ).permitAll().and()
         .formLogin()
@@ -44,7 +44,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
         .loginProcessingUrl("/user/login")
         .usernameParameter("email")
         .passwordParameter("pass")
-        .defaultSuccessUrl("/mesa" ,true).failureForwardUrl("/login")
+        .defaultSuccessUrl("/mesa" ,true).failureForwardUrl("/user/login")
 .permitAll();
         
                 

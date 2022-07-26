@@ -40,7 +40,7 @@
    
             <div class="d-flex align-items-center align-content-center mb-5">
                     <div class="d-flex m-auto mt-4 mb-3"  th:object="${user}">
-                        <form class="m-auto p-1" method="PUT" th:action="@{'/update/' + *{id}}" style="width:100%;" >
+                        <form class="m-auto p-1"  method="PUT" th:action="@{/update/" style="width:100%;">
                           <div class="mb-3">
                             
                             <div class="image-upload d-flex align-items-center justify-content-center" >
@@ -53,11 +53,11 @@
                           </div>
                             <div class="mb-3">
                                 <label>Link da foto</label>
-                                <input id="foto" name="foto" th:field="*{foto}"  type="text" class="form-control"  th:placeholder="${nome}">
+                                <input id="foto" name="foto" th:field="*{foto}"  type="text" class="form-control" placeholder="nome">
                             </div>
                               <div class="mb-3">
                                   <label>Nome</label>
-                                <input id="name" name="nome" th:field="*{nome}"  type="text" class="form-control"  th:placeholder="${nome}">
+                                <input id="name" name="nome" th:field="*{nome}"  type="text" class="form-control"  placeholder="nome">
                               </div>
                               <div class="mb-3">
                                   <label>Cargo</label>

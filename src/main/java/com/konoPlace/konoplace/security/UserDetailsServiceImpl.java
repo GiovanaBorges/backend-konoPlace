@@ -1,5 +1,6 @@
 package com.konoPlace.konoplace.security;
 
+import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<UserModel> optional = userRepository.findByEmail(email);
-        optional.orElseThrow(() -> new UsernameNotFoundException(email + " not found."));
-
-        return optional.map(UserDetailsImpl::new).get();
+        UserModel user = userRepository.findByEmail(email);
+        if(user == null){
+            throw  new UsernameNotFoundException("This user does not exists");
+        }
+        return new UserLogin(user);
     }
 }

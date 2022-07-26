@@ -5,9 +5,11 @@ import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import com.konoPlace.konoplace.services.UserService;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
     //injeção de dependencias
@@ -30,27 +32,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/list")
     public ResponseEntity<List<UserModel>> getUsers(){
       return ResponseEntity.ok(repository.findAll());
     }
 
+
     @GetMapping("/register")
     public ModelAndView  registerScreen(){
-        ModelAndView model = new ModelAndView("index.html");
+        ModelAndView model = new ModelAndView("index");
         UserModel user = new UserModel();
         model.addObject("userModel",user);
         return model;
     }
 
     @GetMapping("/login")
-    public ModelAndView loginScreen()
+    public ModelAndView loginScreen(HttpServletRequest http)
     {
-        ModelAndView model = new ModelAndView(); 
-        model.setViewName("login.html");
-        UserLogin user = new UserLogin();
-        model.addObject("userLogin" , user);
+        ModelAndView model = new ModelAndView("login");
         return model;
     }
 
@@ -90,17 +89,39 @@ public class UserController {
         return model;
     }
 
+    private UserModel getPrincipal(){
+        UserModel user = null;
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserModel ){
+            user = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        return user;
+    }
+
+//    @PostMapping("/login_success_handler")
+//    public ModelAndView loginSuccessHandler() {
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("home.html");
+//        return mv;
+//    }
+//
+//    @PostMapping("/login_failure_handler")
+//    public ModelAndView loginFailureHandler() {
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("login.html");
+//        return mv;
+//    }
+
 
     @PostMapping("/register")
     public void createUser(@ModelAttribute UserModel user , HttpServletResponse response) {
             userService.registerUser(user,response);
     }
-
-    @PostMapping("/login")
-    public void login(@ModelAttribute UserLogin user , HttpServletResponse response)
-    {
-        userService.loginUser(user, response);
-    }
+//
+//    @PostMapping("/login")
+//    public void login(@ModelAttribute UserLogin user , HttpServletResponse response)
+//    {
+//        userService.loginUser(user, response);
+//    }
 
     @PutMapping("/update/{id}")
     public ModelAndView EditUser(@PathVariable Long id,@ModelAttribute UserModel user ,HttpServletRequest request){

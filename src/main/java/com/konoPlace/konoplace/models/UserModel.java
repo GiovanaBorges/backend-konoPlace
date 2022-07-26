@@ -19,26 +19,24 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String nome;
 
     @NotNull(message = "O atributo Email é obrigatório")
-    @Column(unique=true)
+    @Column(unique=true ,nullable = false)
     private String email;
 
-    @NotNull
     private String cargo;
 
     private String foto;
 
-    @NotNull
     private String departamento;
 
-    @NotNull
     private String senha;
 
-    @NotNull
     private String telefone;
+
+
+    private String role;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

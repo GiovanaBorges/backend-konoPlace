@@ -39,26 +39,25 @@ public class UserService {
     }
 
     public ModelAndView loginUser(UserLogin userlogin , HttpServletResponse res){
-        Optional<UserModel> userCompare = userRepo.findByEmail(userlogin.getEmail());
-
+//        Optional<UserModel> user = userRepo.findByEmail(userlogin.getEmail());
         ModelAndView model = new ModelAndView();
-
-        if(userCompare.isEmpty()){
-            model.setViewName("index.html");
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
-        }else{
-            if(comparePass(userlogin.getPass(), userCompare.get().getSenha())){
-                Optional<UserModel> user = userRepo.findByEmail(userCompare.get().getEmail());
-
-                String userId = String.valueOf(user.get().getId());
-
-                Cookie cookie = new Cookie("userID", userId);
-                cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-                res.addCookie(cookie);
-
-                model.setViewName("home.html");
-            }
-        }
+//
+//
+//        if(user.isEmpty()){
+//            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
+//        }else{
+//            if(comparePass(userlogin.getPass(), userlogin.getPass())){
+//                Optional<UserModel> User = userRepo.findByEmail(userlogin.getEmail());
+//
+//                String userId = String.valueOf(user.get().getId());
+//
+//                Cookie cookie = new Cookie("userID", userId);
+//                cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+//                res.addCookie(cookie);
+//
+//                model.setViewName("home.html");
+//            }
+//        }
 
         return model;
 
@@ -68,10 +67,10 @@ public class UserService {
     public ModelAndView registerUser(UserModel newUser , HttpServletResponse res){
                 ModelAndView mv = new ModelAndView();
                 userRepo.save(newUser);
-                Optional<UserModel> user = userRepo.findByEmail(newUser.getEmail());
+//                Optional<UserModel> user = userRepo.findByEmail(newUser.getEmail());
 
-                String userId = String.valueOf(user.get().getId());
-                cookieService.setCookie(res,userId);
+//                String userId = String.valueOf(user.get().getId());
+//                cookieService.setCookie(res,userId);
                 return mv;
 
     }

@@ -14,14 +14,14 @@ public class CookieService {
         return true;
     }
 
-    public void setCookie(HttpServletResponse res , String idUser){
+    public void setCookie(HttpServletResponse res, String idUser) {
         // create a cookie
         Cookie cookie = new Cookie("userID", idUser);
         cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        //add cookie to response
+        // add cookie to response
         res.addCookie(cookie);
 
     }
@@ -31,6 +31,5 @@ public class CookieService {
         String cookie = userID.getValue();
         return cookie;
     }
-
 
 }

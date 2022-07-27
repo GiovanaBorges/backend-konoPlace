@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6576e9d7-0eb9-40cb-8170-b126a74f7c95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/BasicSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/BasicSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/perfil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/perfil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/reserve.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/reserve.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

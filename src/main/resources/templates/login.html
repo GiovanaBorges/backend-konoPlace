@@ -58,15 +58,18 @@
 
           <div class="col-md-5 col-xl-5 col-xxl-5  col-sm-8">
             <div class="row align-items-center justify-content-center">
-              <form th:action="@{login}" method="GET" th:object="${userLogin}">
+              <div th:if="${param.error}">
+                <p class="text-danger">Invalid username or password</p>
+              </div>
+              <form th:action="@{/login}" method="post">
                 <h1 class="mb-3">Login</h1>
 
                 <div class="mb-3">
 
-                  <input id="email" name="email" th:field="*{email}" type="email" class="form-control" placeholder="Email">
+                  <input id="username" name="username" type="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="mb-3">
-                  <input id="pass" name="senha" th:field="*{pass}" type="password" class="form-control" placeholder="Senha">
+                  <input id="password" name="password"  type="password" class="form-control" placeholder="Senha">
                 </div>
                 <div class="mb-3 d-flex justify-content-end">
                   <a th:href="@{forget}">Esqueci a senha</a>
@@ -116,10 +119,6 @@
               <a href="https://www.instagram.com/firsttechbr/" target=_blank class="nav-link text-white mx-3"><img
                   src="https://img.icons8.com/fluency/30/undefined/instagram-new.png" /></a>
             </li>
-
-
-
-
 
             <li class="nav-item col-md-6 col-sm-4">
               <a href="https://www.linkedin.com/company/first-tech/mycompany/" target=_blank

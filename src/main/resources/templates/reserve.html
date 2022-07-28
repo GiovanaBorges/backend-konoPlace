@@ -32,11 +32,11 @@
           <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
             alt="logout" />
 
-          <a th:href="@{mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
+          <a th:href="@{/mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
               alt="schedule"></a>
-          <a th:href="@{perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
+          <a th:href="@{/perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
               alt="user profile" /></a>
-          <a th:href="@{login}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
+          <a th:href="@{/logout}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
               alt="logout" /></a> </span>
       </div>
     </div>
@@ -46,19 +46,15 @@
 
     <div class="container-fluid reserve_space">
       <div class="d-grid gap-2 d-md-flex justify-content-center">
-        <a th:href="@{perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
-        <a th:href="@{reservas}" class="link me-md-2 p-3 mt-3" th:style="@{border-bottom: 2px solid var(--red);}">Reservas</a>
+        <a th:href="@{/perfil}" class="link me-md-2 p-3 mt-3">Perfil</a>
+        <a th:href="@{/reserva/reservas}" class="link me-md-2 p-3 mt-3" th:style="@{border-bottom: 2px solid var(--red);}">Reservas</a>
       </div>
 
 
-      <div th:if="${reserva==null}">
-        <div>
+      <div class="d-flex flex-column align-items-center align-content-center mt-5" th:if="${reservable==null}">
           <td colspan="5">Parece que você ainda não têm reservas!</td>
-        </div>
-
+          <a th:href="@{/mesa}">Criar reserva</a>
       </div>
-
-
 
 
       <form class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
@@ -81,9 +77,9 @@
             <a th:href="@{/mesa}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
             <div class="d-flex mt-3">
               <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
-                style="width:50%;">Editar</a>
+                style="width:50%;" th:onclick="verify([[${reservas}]])">Editar</a>
               <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalDeleteReserva" class="btn btn-outline-danger"
-                style="width:50%;">Cancelar</a>
+                style="width:50%;" th:onclick="verify([[${reservas}]])">Cancelar</a>
             </div>
 
         </div>
@@ -168,7 +164,11 @@
     </div>
   </div>
 
+  <script th:inline="javascript">
+    function verify(obj){
 
+    }
+  </script>
 
 
   <!-- Modal -->
@@ -203,7 +203,7 @@
   <script th:inline="javascript">
     document.querySelector("#id-checkbox").addEventListener("submit", function(event) {
          event.preventDefault();
-}, false);
+    }, false);
 
   </script>
 

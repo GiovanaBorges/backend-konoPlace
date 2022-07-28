@@ -58,12 +58,9 @@ function validarcadastro() {
 }
 
 function PreviewImage() {
-  var oFReader = new FileReader();
-  oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+  let image =  document.getElementById("uploadImage").value
 
-  oFReader.onload = function (oFREvent) {
-    document.getElementById("uploadPreview").src = oFREvent.target.result;
-  };
+    document.getElementById("uploadPreview").src = image;
 }
 
 function date() {

@@ -24,9 +24,9 @@
         <div class="d-flex" role="search">
             <span class="navbar-text ">
               <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png"class= "icon mx-3" alt="logout" />
-                <a th:href="@{/mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3" alt="schedule"></a>
-                <a th:href="@{/user/perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3" alt="user profile" /></a>
-              <a th:href = "@{/user/register}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png "class= "icon mx-4" alt="logout"/></a> </span>
+                <a th:href="@{mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3" alt="schedule"></a>
+                <a th:href="@{perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3" alt="user profile" /></a>
+              <a th:href = "@{logout}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png "class= "icon mx-4" alt="logout"/></a> </span>
         </div>
     </div>
 </nav>
@@ -40,20 +40,21 @@
    
             <div class="d-flex align-items-center align-content-center mb-5">
                     <div class="d-flex m-auto mt-4 mb-3"  th:object="${user}">
-                        <form class="m-auto p-1"  method="PUT" th:action="@{/update/" style="width:100%;">
+                        <form name="f_profile" class="m-auto p-1" method="put" action="http:localhost:8087/update" style="width:100%;">
                           <div class="mb-3">
                             
                             <div class="image-upload d-flex align-items-center justify-content-center" >
                               <label for="uploadImage">
                                   <img th:src="*{foto}" alt="image_usuario" id="uploadPreview" th:style="@{width: 110px; height: 110px;}">
                               </label>  
-                              <input id="uploadImage" th:field="*{foto}" name="foto" type="file"  th:onchange="PreviewImage();">
+                              <input th:field="*{foto}" name="foto" type="file" >
                           </div>
 
                           </div>
+                            <input id="id" hidden name="id" th:field="*{id}"  type="text" class="form-control" placeholder="nome" >
                             <div class="mb-3">
                                 <label>Link da foto</label>
-                                <input id="foto" name="foto" th:field="*{foto}"  type="text" class="form-control" placeholder="nome">
+                                <input id="uploadImage" name="foto" th:field="*{foto}"  type="text" class="form-control" placeholder="nome" th:onchange="PreviewImage()">
                             </div>
                               <div class="mb-3">
                                   <label>Nome</label>
@@ -139,7 +140,51 @@
       </div>
   </footer>
       
-     
+     <script th:inline="javascript">
+
+
+       async function handleFormSubmit(event) {
+	event.preventDefault();
+
+	const form = event.currentTarget;
+	const url = form.action;
+
+	try {
+		const formData = new FormData(form);
+		const responseData = await postFormDataAsJson({ url, formData });
+
+		console.log({ responseData });
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+         async function postFormDataAsJson({ url, formData }) {
+	        const plainFormData = Object.fromEntries(formData.entries());
+	        const formDataJsonString = JSON.stringify(plainFormData);
+
+	const fetchOptions = {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: formDataJsonString,
+	};
+
+	const response = await fetch(url, fetchOptions);
+
+	if (!response.ok) {
+		const errorMessage = await response.text();
+		throw new Error(errorMessage);
+	}
+
+	return response.json();
+}
+
+      const form = document.getElementById("f_profile");
+          form.addEventListener("submit", handleFormSubmit);
+     </script>
 
 <!-- Modal -->
 <div class="modal fade" id="modalPerfil" tabindex="-1"  aria-labelledby="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false">

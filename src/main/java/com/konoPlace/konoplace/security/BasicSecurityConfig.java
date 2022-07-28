@@ -28,7 +28,6 @@ import java.io.IOException;
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     final UserDetailsService userDetailsService;
 
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -57,8 +56,9 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/styles/**","/js/**","/assets/**").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login")
-                .usernameParameter("email").passwordParameter("senha")
+                .and().formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("email").passwordParameter("senha")
                 .defaultSuccessUrl("/mesa", true)
                 .permitAll().and().csrf().disable();
 //                .formLogin()

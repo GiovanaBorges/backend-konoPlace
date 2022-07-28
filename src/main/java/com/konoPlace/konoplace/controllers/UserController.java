@@ -3,19 +3,25 @@ package com.konoPlace.konoplace.controllers;
 import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
+import com.konoPlace.konoplace.services.CookieService;
 import com.konoPlace.konoplace.services.UserService;
 
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +37,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CookieService cookieService;
 
     @GetMapping("/list")
     public ResponseEntity<List<UserModel>> getUsers(){
@@ -49,6 +58,7 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView loginScreen(HttpServletRequest http)
     {
+
         ModelAndView model = new ModelAndView("login");
         return model;
     }
@@ -60,7 +70,7 @@ public class UserController {
         model.setViewName("forget.html");
         return model;
     }
-    
+
     @GetMapping("/perfil")
     public ModelAndView perfilScreen(HttpServletRequest request)
     {
@@ -69,8 +79,9 @@ public class UserController {
         Cookie[] cookie = null;
         cookie = request.getCookies();
 
-        Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
-        Long id = Long.parseLong(result.get().getValue());
+//        Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
+        String cookieUserID = cookieService.readCookie(request);
+        Long id = Long.parseLong(cookieUserID);
         Optional<UserModel> user = repository.findById(id);
 
         UserModel userModel = new UserModel();
@@ -97,31 +108,16 @@ public class UserController {
         return user;
     }
 
-//    @PostMapping("/login_success_handler")
-//    public ModelAndView loginSuccessHandler() {
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("home.html");
-//        return mv;
-//    }
-//
-//    @PostMapping("/login_failure_handler")
-//    public ModelAndView loginFailureHandler() {
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("login.html");
-//        return mv;
-//    }
-
-
     @PostMapping("/register")
     public void createUser(@ModelAttribute UserModel user , HttpServletResponse response) {
             userService.registerUser(user,response);
     }
-//
-//    @PostMapping("/login")
-//    public void login(@ModelAttribute UserLogin user , HttpServletResponse response)
-//    {
-//        userService.loginUser(user, response);
-//    }
+
+    @PostMapping("/login")
+    public void login(@ModelAttribute UserLogin user , HttpServletResponse response)
+    {
+        cookieService.setCookie(response,user.getEmail());
+    }
 
     @PutMapping("/update/{id}")
     public ModelAndView EditUser(@PathVariable Long id,@ModelAttribute UserModel user ,HttpServletRequest request){
@@ -135,7 +131,7 @@ public class UserController {
         UserModel userModel = new UserModel();
         userModel.setId(id);
         userModel.setEmail(user.getEmail());
-        userModel.setSenha(user.getSenha());
+        userModel.setSenha(null);
         userModel.setId(user.getId());
         userModel.setReserva(user.getReserva());
         userModel.setCargo(user.getCargo());

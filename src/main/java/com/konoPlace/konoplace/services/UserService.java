@@ -38,39 +38,15 @@ public class UserService {
         return encrypt.matches(newpass,pass);
     }
 
-    public ModelAndView loginUser(UserLogin userlogin , HttpServletResponse res){
-//        Optional<UserModel> user = userRepo.findByEmail(userlogin.getEmail());
-        ModelAndView model = new ModelAndView();
-//
-//
-//        if(user.isEmpty()){
-//            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST , "This user does not exists!");
-//        }else{
-//            if(comparePass(userlogin.getPass(), userlogin.getPass())){
-//                Optional<UserModel> User = userRepo.findByEmail(userlogin.getEmail());
-//
-//                String userId = String.valueOf(user.get().getId());
-//
-//                Cookie cookie = new Cookie("userID", userId);
-//                cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-//                res.addCookie(cookie);
-//
-//                model.setViewName("home.html");
-//            }
-//        }
-
-        return model;
-
-    }
-
-
     public ModelAndView registerUser(UserModel newUser , HttpServletResponse res){
                 ModelAndView mv = new ModelAndView();
+                newUser.setSenha(encryptPass(newUser.getSenha()));
                 userRepo.save(newUser);
-//                Optional<UserModel> user = userRepo.findByEmail(newUser.getEmail());
+                UserModel user = userRepo.findByEmail(newUser.getEmail());
 
-//                String userId = String.valueOf(user.get().getId());
-//                cookieService.setCookie(res,userId);
+                String userId = String.valueOf(user.getId());
+                cookieService.setCookie(res,userId);
+                mv.setViewName("home.html");
                 return mv;
 
     }

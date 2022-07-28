@@ -29,15 +29,16 @@
       </button>
       <div class="d-flex" role="search">
         <span class="navbar-text">
-          <img id="element" th:src="@{https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png}" class="icon mx-3"
+          <img id="element" src="https://img.icons8.com/ios-glyphs/30/white/moon-symbol.png" class="icon mx-3"
             alt="logout" />
           <a th:href="@{mesa}"><img src="https://img.icons8.com/ios/50/F97A2D/calendar--v1.png" class="icon mx-3"
               alt="schedule" /></a>
           <a th:href="@{perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png"
               class="icon mx-3" alt="user profile" /></a>
-
-          <a th:href="@{perfil}"><img src="https://img.icons8.com/ios/24/F97A2D/exit.png " class="icon mx-4"
-              alt="logout" /></a>
+          <form name="logout" th:action="@{logout}" method="post" class="icon mx-4">
+            <input type="submit" value="Sair" />
+<!--            <img src="https://img.icons8.com/ios/24/F97A2D/exit.png " class="icon mx-4" alt="logout" />-->
+          </form>
         </span>
       </div>
     </div>
@@ -411,12 +412,13 @@ function formatDate(date) {
   </footer>
 
   <!-- JavaScript Bundle with Popper -->
-  <script th:src="@{/js/trocarcordefundo.js}"></script>
-  <script th:src="@{/js/js.js}"></script>
+  <script type="text/javascript" th:src="@{/js/trocarcordefundo.js}"></script>
+  <script type="text/javascript" th:src="@{/js/js.js}"></script>
   <!-- JavaScript Bundle with Popper -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"></script>
+          integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+          crossorigin="anonymous"></script>
 </body>
 
 </html>

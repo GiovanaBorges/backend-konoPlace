@@ -19,8 +19,9 @@ public class UserLogin implements UserDetails {
     public UserLogin(UserModel user){
         super();
         this.user = user;
+        this.user.setSenha(user.getSenha());
+        this.user.setEmail(user.getEmail());
     }
-
 
 
     public String getEmail() {

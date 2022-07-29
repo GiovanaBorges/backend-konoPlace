@@ -40,14 +40,13 @@
    
             <div class="d-flex align-items-center align-content-center mb-5">
                     <div class="d-flex m-auto mt-4 mb-3"  th:object="${user}">
-                        <form name="f_profile" class="m-auto p-1" method="put" action="http:localhost:8087/update" style="width:100%;">
+                        <form name="f_profile" class="m-auto p-1" method="PUT" th:action="@{update}"  style="width:100%;">
                           <div class="mb-3">
                             
                             <div class="image-upload d-flex align-items-center justify-content-center" >
                               <label for="uploadImage">
                                   <img th:src="*{foto}" alt="image_usuario" id="uploadPreview" th:style="@{width: 110px; height: 110px;}">
-                              </label>  
-                              <input th:field="*{foto}" name="foto" type="file" >
+                              </label>
                           </div>
 
                           </div>
@@ -143,71 +142,71 @@
      <script th:inline="javascript">
 
 
-       async function handleFormSubmit(event) {
-	event.preventDefault();
+<!--       async function handleFormSubmit(event) {-->
+<!--	event.preventDefault();-->
 
-	const form = event.currentTarget;
-	const url = form.action;
+<!--	const form = event.currentTarget;-->
+<!--	const url = form.action;-->
 
-	try {
-		const formData = new FormData(form);
-		const responseData = await postFormDataAsJson({ url, formData });
+<!--	try {-->
+<!--		const formData = new FormData(form);-->
+<!--		const responseData = await postFormDataAsJson({ url, formData });-->
 
-		console.log({ responseData });
-	} catch (error) {
-		console.error(error);
-	}
-}
+<!--		console.log({ responseData });-->
+<!--	} catch (error) {-->
+<!--		console.error(error);-->
+<!--	}-->
+<!--}-->
 
-         async function postFormDataAsJson({ url, formData }) {
-	        const plainFormData = Object.fromEntries(formData.entries());
-	        const formDataJsonString = JSON.stringify(plainFormData);
+<!--         async function postFormDataAsJson({ url, formData }) {-->
+<!--	        const plainFormData = Object.fromEntries(formData.entries());-->
+<!--	        const formDataJsonString = JSON.stringify(plainFormData);-->
 
-	const fetchOptions = {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-		},
-		body: formDataJsonString,
-	};
+<!--	const fetchOptions = {-->
+<!--		method: "PUT",-->
+<!--		headers: {-->
+<!--			"Content-Type": "application/json",-->
+<!--			Accept: "application/json",-->
+<!--		},-->
+<!--		body: formDataJsonString,-->
+<!--	};-->
 
-	const response = await fetch(url, fetchOptions);
+<!--	const response = await fetch(url, fetchOptions);-->
 
-	if (!response.ok) {
-		const errorMessage = await response.text();
-		throw new Error(errorMessage);
-	}
+<!--	if (!response.ok) {-->
+<!--		const errorMessage = await response.text();-->
+<!--		throw new Error(errorMessage);-->
+<!--	}-->
 
-	return response.json();
-}
+<!--	return response.json();-->
+<!--}-->
 
-      const form = document.getElementById("f_profile");
-          form.addEventListener("submit", handleFormSubmit);
+<!--      const form = document.getElementById("f_profile");-->
+<!--          form.addEventListener("submit", handleFormSubmit);-->
      </script>
 
 <!-- Modal -->
 <div class="modal fade" id="modalPerfil" tabindex="-1"  aria-labelledby="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog" th:object="${user}">
-      <form action="@{/delete/${}}" method="delete">
-    <div class="modal-content" th:object="${user}" th:style="@{background-color:var(--dark-100)}">
-
+      <form th:action="@{delete}" method="DELETE">
+    <div class="modal-content" th:style="@{background-color:var(--dark-100);}">
+        <input hidden type="text" th:value="${user.id}" >
       <div class="modal-header">
-        <h5 class="modal-title" id="modalInfo"> Deseja excluir conta </h5>
+        <h5 class="modal-title" id="modalInfo"> Deletar conta </h5>
         <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cleanModal()"></button>
       </div>
-            <h6>Deseja excluir sua conta ? </h6>
-      <h6 id="name_user" th:field="*{nome}">
-      </h6>
-      <h6 class="modal-body m-0" id="place_info" th:field="*{email}">
+            <h6 class="text-center">Deseja excluir sua conta ? </h6>
+            <h6 class="text-center" id="name_user" th:text="${user.nome}"></h6>
+      <h6 class="modal-body m-0 text-center" id="place_info" th:text="${user.email}">
       </h6>
       <div class="modal-footer d-flex justify-content-center">
           <button type="submit" class="btn btn-outline-success" th:style="@{width:50%;}">Excluir conta</button>
           <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()" th:style="@{width:40%;}">Cancelar</button>
       </div>
-        </form>
+
 
     </div>
+      </form>
   </div>
 </div>
 

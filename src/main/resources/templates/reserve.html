@@ -22,10 +22,6 @@
   <nav class="navbar navbar-expand-lg" >
     <div class="container-fluid">
       <a class="navbar-brand text-white" th:href="@{/mesa}"><img th:src="@{/assets/text-logo-test.png}" alt="" style="width:150px"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="d-flex" role="search">
         <span class="navbar-text text-white">
 
@@ -36,8 +32,13 @@
               alt="schedule"></a>
           <a th:href="@{/perfil}"><img src="https://img.icons8.com/ios-glyphs/30/F97A2D/user--v1.png" class="icon mx-3"
               alt="user profile" /></a>
-          <a th:href="@{/logout}"><img src="https://img.icons8.com/ios/50/F97A2D/exit.png " class="icon mx-4"
-              alt="logout" /></a> </span>
+
+            <form name="logout" th:action="@{logout}" method="post" class="icon mx-3">
+            <input type="submit" value="Sair" />
+              <!--            <img src="https://img.icons8.com/ios/24/F97A2D/exit.png " class="icon mx-4" alt="logout" />-->
+          </form>
+
+        </span>
       </div>
     </div>
   </nav>
@@ -57,7 +58,7 @@
       </div>
 
 
-      <form class="d-flex align-items-center align-content-center mt-5 " th:each="reservas : ${reservable}">
+      <form class="d-flex align-items-center align-content-center mt-5 " th:if="${reservable}" th:each="reservas : ${reservable}">
 
         <div class="card m-auto" style="width: 18rem;" >
           <div class="card-body">
@@ -73,7 +74,7 @@
             <div class="card-text mt-2 d-flex" >
               Incluso na mesa :
             </div>
-            <p class="d-flex flex-column  align-items-center card-text mx-2" id="perife" th:each="perife :${reservas.mesa.perifericos}" th:text="${perife}"></p>
+            <p class="d-flex flex-column  align-items-center card-text mx-2" id="perife"  th:each="perife :${reservas.mesa.perifericos}" th:text="${perife}"></p>
             <a th:href="@{/mesa}" class="btn btn-outline-success" style="width:100%;">Ver informações</a>
             <div class="d-flex mt-3">
               <a href="#" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditReserva" class="btn btn-outline-primary me-1"
@@ -131,38 +132,38 @@
     </div>
 </footer>
 
-  <!-- Modal -->
-  <div class="modal fade" id="modalEditReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
-    data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content" style="background-color:var(--dark-100)">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalInfo"> Deseja editar sua reserva?</h5>
-          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            onclick="cleanModal()"></button></div>
+<!--  &lt;!&ndash; Modal &ndash;&gt;-->
+<!--  <div class="modal fade" id="modalEditReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"-->
+<!--    data-bs-keyboard="false">-->
+<!--    <div class="modal-dialog">-->
+<!--      <div class="modal-content" style="background-color:var(&#45;&#45;dark-100)">-->
+<!--        <div class="modal-header">-->
+<!--          <h5 class="modal-title" id="modalInfo"> Deseja editar sua reserva?</h5>-->
+<!--          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"-->
+<!--            onclick="cleanModal()"></button></div>-->
 
-        
-        <h6 id="place_data">
-          
-        </h6>
-        <h6 class="modal-body m-0" id="place_info">
-          <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">
-            <h6 class="">Escolha a nova data:</h6>
-            <input type="date" class="form-control" id="date_reservation" name="fdate_reservation"
-              th:style="@{width:50%;background-color:var(--bg);}">
-            <button type="submit" class="btn btn-outline-danger mb-3 mt-3" th:style="@{width:50%;}">Verificar disponibilidade</button>
-          </form>
-        </h6>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-outline-success" th:style="@{width:50%;}">Salvar</button>
-          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"
-            th:style="@{width:50%;}">Cancelar</button>
-        </div>
+<!--        -->
+<!--        <h6 id="place_data">-->
+<!--          -->
+<!--        </h6>-->
+<!--        <h6 class="modal-body m-0" id="place_info">-->
+<!--          <form action="" onsubmit="date()" class="d-flex flex-column  align-items-center">-->
+<!--            <h6 class="">Escolha a nova data:</h6>-->
+<!--            <input type="date" class="form-control" id="date_reservation" name="fdate_reservation"-->
+<!--              th:style="@{width:50%;background-color:var(&#45;&#45;bg);}">-->
+<!--            <button type="submit" class="btn btn-outline-danger mb-3 mt-3" th:style="@{width:50%;}">Verificar disponibilidade</button>-->
+<!--          </form>-->
+<!--        </h6>-->
+<!--        <div class="modal-footer d-flex justify-content-center">-->
+<!--          <button type="submit" class="btn btn-outline-success" th:style="@{width:50%;}">Salvar</button>-->
+<!--          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"-->
+<!--            th:style="@{width:50%;}">Cancelar</button>-->
+<!--        </div>-->
 
-        </form>
-      </div>
-    </div>
-  </div>
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <script th:inline="javascript">
     function verify(obj){
@@ -171,39 +172,37 @@
   </script>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="modalDeleteReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"
-    data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content" style="background-color:var(--dark-100)">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalInfo"> Deseja Cancelar sua reserva?</h5>
-          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            onclick="cleanModal()"></button>
-        </div>
-        <form method="delete" action="/delete/${}">
+<!--  &lt;!&ndash; Modal &ndash;&gt;-->
+<!--  <div class="modal fade" id="modalDeleteReserva" tabindex="-1" aria-labelledby="modalInfo" data-bs-backdrop="static"-->
+<!--    data-bs-keyboard="false">-->
+<!--    <div class="modal-dialog">-->
+<!--      <div class="modal-content" style="background-color:var(&#45;&#45;dark-100)">-->
+<!--        <div class="modal-header">-->
+<!--          <h5 class="modal-title" id="modalInfo"> Deseja Cancelar sua reserva?</h5>-->
+<!--          <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"-->
+<!--            onclick="cleanModal()"></button>-->
+<!--        </div>-->
+<!--        <form method="delete" action="/delete/${}">-->
 
-        <h6 id="place_data">
-          Reserva : 30/06/2022
-        </h6>
-        <h6 class="modal-body m-0" id="place_info">
+<!--        <h6 id="place_data">-->
+<!--          Reserva : 30/06/2022-->
+<!--        </h6>-->
+<!--        <h6 class="modal-body m-0" id="place_info">-->
 
-        </h6>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-outline-success" style="width:50%;">Sim</button>
-          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"
-            style="width:40%;">Cancelar</button>
-        </div>
+<!--        </h6>-->
+<!--        <div class="modal-footer d-flex justify-content-center">-->
+<!--          <button type="submit" class="btn btn-outline-success" style="width:50%;">Sim</button>-->
+<!--          <button type="button" id="btnClose" class="btn btn-outline-danger" data-bs-dismiss="modal" onclick="cleanModal()"-->
+<!--            style="width:40%;">Cancelar</button>-->
+<!--        </div>-->
 
-        </form>
-      </div>
-    </div>
-  </div>
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <script th:inline="javascript">
-    document.querySelector("#id-checkbox").addEventListener("submit", function(event) {
-         event.preventDefault();
-    }, false);
+
 
   </script>
 

@@ -58,7 +58,7 @@ function validarcadastro() {
 }
 
 function PreviewImage() {
-  let image =  document.getElementById("uploadImage").value
+    let image =  document.getElementById("uploadImage").value
 
     document.getElementById("uploadPreview").src = image;
 }

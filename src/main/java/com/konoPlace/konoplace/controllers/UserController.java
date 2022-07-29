@@ -76,9 +76,6 @@ public class UserController {
     {
         ModelAndView model = new ModelAndView();
 
-        Cookie[] cookie = null;
-        cookie = request.getCookies();
-
 //        Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
         String cookieUserID = cookieService.readCookie(request);
         Long id = Long.parseLong(cookieUserID);
@@ -119,19 +116,18 @@ public class UserController {
         cookieService.setCookie(response,user.getEmail());
     }
 
-    @PutMapping("/update/{id}")
-    public ModelAndView EditUser(@PathVariable Long id,@ModelAttribute UserModel user ,HttpServletRequest request){
+    @PutMapping("/update")
+    public ModelAndView EditUser(@RequestParam(name = "id") Long id,@ModelAttribute UserModel user ,HttpServletRequest request){
         ModelAndView mv = new ModelAndView();
-        Cookie[] cookie = null;
-        cookie = request.getCookies();
 
         //Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
         //Long idUser = Long.parseLong(result.get().getValue());
 
         UserModel userModel = new UserModel();
+
         userModel.setId(id);
         userModel.setEmail(user.getEmail());
-        userModel.setSenha(null);
+        userModel.setSenha(userService.encryptPass(userModel.getSenha()));
         userModel.setId(user.getId());
         userModel.setReserva(user.getReserva());
         userModel.setCargo(user.getCargo());
@@ -146,8 +142,8 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void DeleteUser(@PathVariable Long id){
+    @DeleteMapping("/delete")
+    public void DeleteUser(@RequestParam(name = "id") Long id){
         repository.deleteById(id);
     }
 }

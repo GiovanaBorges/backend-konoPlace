@@ -27,7 +27,7 @@ public class UserService {
     @Autowired
     private CookieService cookieService;
 
-    private String encryptPass(String pass){
+    public String encryptPass(String pass){
         BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
         String encoder = encrypt.encode(pass);
         return encoder;
@@ -41,6 +41,7 @@ public class UserService {
     public ModelAndView registerUser(UserModel newUser , HttpServletResponse res){
                 ModelAndView mv = new ModelAndView();
                 newUser.setSenha(encryptPass(newUser.getSenha()));
+                newUser.setRole("USER");
                 userRepo.save(newUser);
                 UserModel user = userRepo.findByEmail(newUser.getEmail());
 

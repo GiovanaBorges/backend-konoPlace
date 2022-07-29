@@ -1,5 +1,6 @@
 package com.konoPlace.konoplace.controllers;
 
+import com.konoPlace.konoplace.models.MesaModel;
 import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.ReservaRepository;
@@ -48,19 +49,14 @@ public class ReservaController {
         ModelAndView model = new ModelAndView();
         model.setViewName("reserve.html");
 
-        Cookie[] cookie = null;
-        Cookie cookies = null;
-        cookie = request.getCookies();
-
-        Optional<Cookie> result = Arrays.stream(cookie).findFirst();
-        Long id = Long.parseLong(result.get().getValue());
+        Long id = Long.valueOf(cookieService.readCookie(request));
         Optional<UserModel> user = repoUser.findById(id);
 
         UserModel userModel = new UserModel();
         userModel.setEmail(user.get().getEmail());
         userModel.setSenha(user.get().getSenha());
         userModel.setId(user.get().getId());
-        userModel.setReserva(user.get().getReserva());
+        userModel.setReserva(user.get().getReserva().size() > 0? user.get().getReserva() : null);
         userModel.setCargo(user.get().getCargo());
         userModel.setDepartamento(user.get().getDepartamento());
         userModel.setFoto(user.get().getFoto());

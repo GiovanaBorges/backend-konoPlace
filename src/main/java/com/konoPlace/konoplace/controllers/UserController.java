@@ -58,7 +58,6 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView loginScreen(HttpServletRequest http)
     {
-
         ModelAndView model = new ModelAndView("login");
         return model;
     }
@@ -76,9 +75,6 @@ public class UserController {
     {
         ModelAndView model = new ModelAndView();
 
-        Cookie[] cookie = null;
-        cookie = request.getCookies();
-
 //        Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
         String cookieUserID = cookieService.readCookie(request);
         Long id = Long.parseLong(cookieUserID);
@@ -86,7 +82,7 @@ public class UserController {
 
         UserModel userModel = new UserModel();
         userModel.setEmail(user.get().getEmail());
-        userModel.setSenha(user.get().getSenha());
+        userModel.setSenha("sua senha");
         userModel.setId(user.get().getId());
         userModel.setReserva(user.get().getReserva());
         userModel.setCargo(user.get().getCargo());
@@ -119,19 +115,14 @@ public class UserController {
         cookieService.setCookie(response,user.getEmail());
     }
 
-    @PutMapping("/update/{id}")
-    public ModelAndView EditUser(@PathVariable Long id,@ModelAttribute UserModel user ,HttpServletRequest request){
+    @PutMapping("/update")
+    public void EditUser(@ModelAttribute UserModel user ){
         ModelAndView mv = new ModelAndView();
-        Cookie[] cookie = null;
-        cookie = request.getCookies();
-
-        //Optional<Cookie> result =  Arrays.stream(cookie).findFirst();
-        //Long idUser = Long.parseLong(result.get().getValue());
 
         UserModel userModel = new UserModel();
-        userModel.setId(id);
+        userModel.setId(user.getId());
         userModel.setEmail(user.getEmail());
-        userModel.setSenha(null);
+        userModel.setSenha(user.getSenha());
         userModel.setId(user.getId());
         userModel.setReserva(user.getReserva());
         userModel.setCargo(user.getCargo());
@@ -141,9 +132,6 @@ public class UserController {
         userModel.setNome(user.getNome());
 
         repository.save(user);
-        mv.setViewName("home.html");
-        return mv;
-
     }
 
     @DeleteMapping("/delete/{id}")

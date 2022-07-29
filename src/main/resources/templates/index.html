@@ -88,6 +88,10 @@
                 <input th:field="*{senha}" id="pass-confirm" name="senha" type="password" class="form-control"
                   placeholder="Confirmar Senha">
               </div>
+              <div class="mb-3">
+                <input th:field="*{role}"  hidden value="USER" name="role" class="form-control"/>
+
+              </div>
 
               <div class="mb-3 d-flex justify-content-end">
                 <a th:href="@{login}">Já Tenho conta</a>

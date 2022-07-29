@@ -34,14 +34,15 @@ public class MesaController {
 
     @GetMapping()
     public ModelAndView getMesaModel(){
-        ModelAndView model = new ModelAndView("home");
+        ModelAndView model = new ModelAndView();
+        model.setViewName("home.html");
 
         ReservaModel reservamodel = new ReservaModel();
         List<MesaModel> mesas = repository.findAll();
         List<ReservaModel> reserva = reservaRepository.findAll();
-        model.addObject("place" , mesas);
-        model.addObject("reservas" , reserva);
-        model.addObject("reservaModel" , reservamodel);
+//        model.addObject("place" , mesas);
+//        model.addObject("reservas" , reserva);
+//        model.addObject("reservaModel" , reservamodel);
         return model;
     }
 

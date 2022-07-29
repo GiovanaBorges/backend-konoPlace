@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6514eee8-a8dc-4a65-a97c-6847c160fc97" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/MesaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/MesaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/ReservaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/ReservaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/models/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/MesaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/MesaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/ReservaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/ReservaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/repositories/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/BasicSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/security/BasicSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/konoPlace/konoplace/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/perfil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/perfil.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/reserve.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/reserve.html" afterDir="false" />
     </list>
@@ -27,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -66,11 +70,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../week-spring-react/backend" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="com.konoPlace.konoplace.KonoplaceApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="temurin-11" />

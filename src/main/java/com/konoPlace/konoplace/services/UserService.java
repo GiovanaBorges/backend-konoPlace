@@ -1,12 +1,15 @@
 package com.konoPlace.konoplace.services;
 
 
+import com.konoPlace.konoplace.controllers.MesaController;
+import com.konoPlace.konoplace.controllers.UserController;
 import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,16 +41,19 @@ public class UserService {
         return encrypt.matches(newpass,pass);
     }
 
-    public ModelAndView registerUser(UserModel newUser , HttpServletResponse res){
-                ModelAndView mv = new ModelAndView();
+    public void registerUser(UserModel newUser , HttpServletResponse res){
                 newUser.setSenha(encryptPass(newUser.getSenha()));
+                newUser.setRole("USER");
                 userRepo.save(newUser);
                 UserModel user = userRepo.findByEmail(newUser.getEmail());
 
                 String userId = String.valueOf(user.getId());
                 cookieService.setCookie(res,userId);
-                mv.setViewName("home.html");
-                return mv;
+                MesaController controller = new MesaController();
+                controller.getMesa();
+    }
+
+    public void loginUser(){
 
     }
 

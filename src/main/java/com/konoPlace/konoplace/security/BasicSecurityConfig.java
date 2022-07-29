@@ -1,6 +1,8 @@
 package com.konoPlace.konoplace.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.support.ErrorPageFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +57,8 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/css/**", "/js/**", "/assets/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/mesa").permitAll()
+                .antMatchers(HttpMethod.GET,"/mesa/list").permitAll()
                 .antMatchers("/forget").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/delete/**").permitAll()
                 .antMatchers("/styles/**","/js/**","/assets/**").permitAll()
@@ -74,4 +79,5 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception{
         web.ignoring().antMatchers("/css/**", "/js/**", "/assets/**");
     }
+
 }

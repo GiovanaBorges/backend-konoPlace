@@ -30,7 +30,7 @@ public class UserService {
     @Autowired
     private CookieService cookieService;
 
-    private String encryptPass(String pass){
+    public String encryptPass(String pass){
         BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
         String encoder = encrypt.encode(pass);
         return encoder;

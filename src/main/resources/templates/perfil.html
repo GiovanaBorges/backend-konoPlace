@@ -140,82 +140,21 @@
           </div>
       </div>
   </footer>
-      
-     <script th:inline="javascript">
-<!--      function getPerfilInfo(perfil) {-->
-<!--        console.log(perfil)-->
-<!--        createModal(perfil)-->
-<!--        }-->
-
-<!--    function createModal(perfil) {-->
-<!--      document.querySelector("#name_user").textContent += `${perfil.nome}`-->
-<!--      document.querySelector("#email_info").textContent += `${perfil.email}-->
-<!--    }-->
-
-<!--    function cleanModal() {-->
-<!--      document.querySelector("#name_user").textContent = " "-->
-<!--      document.querySelector("#email_info").textContent = " "-->
-<!--    }-->
-
-
-
-<!--       async function handleFormSubmit(event) {-->
-<!--	event.preventDefault();-->
-
-<!--	const form = event.currentTarget;-->
-<!--	const url = form.action;-->
-
-<!--	try {-->
-<!--		const formData = new FormData(form);-->
-<!--		const responseData = await postFormDataAsJson({ url, formData });-->
-
-<!--		console.log({ responseData });-->
-<!--	} catch (error) {-->
-<!--		console.error(error);-->
-<!--	}-->
-<!--}-->
-
-<!--         async function postFormDataAsJson({ url, formData }) {-->
-<!--	        const plainFormData = Object.fromEntries(formData.entries());-->
-<!--	        const formDataJsonString = JSON.stringify(plainFormData);-->
-
-<!--	const fetchOptions = {-->
-<!--		method: "PUT",-->
-<!--		headers: {-->
-<!--			"Content-Type": "application/json",-->
-<!--			Accept: "application/json",-->
-<!--		},-->
-<!--		body: formDataJsonString,-->
-<!--	};-->
-
-<!--	const response = await fetch(url, fetchOptions);-->
-
-<!--	if (!response.ok) {-->
-<!--		const errorMessage = await response.text();-->
-<!--		throw new Error(errorMessage);-->
-<!--	}-->
-
-<!--	return response.json();-->
-<!--}-->
-
-<!--      const form = document.getElementById("f_profile");-->
-<!--          form.addEventListener("submit", handleFormSubmit);-->
-     </script>
 
 <!-- Modal -->
 <div class="modal fade" id="modalPerfil" tabindex="-1"  aria-labelledby="modalInfo" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog" th:object="${user}">
-      <form name="f_delete" th:action="@{/delete}" method="DELETE">
+      <form name="f_delete" th:action="@{delete}" method="DELETE">
     <div class="modal-content" th:style="@{background-color:var(--dark-100);}">
-
+        <input hidden type="text" th:field="${user.id}" th:value="${user.id}" >
       <div class="modal-header">
-        <h5 class="modal-title" id="modalInfo"> Deseja excluir conta </h5>
+        <h5 class="modal-title" id="modalInfo"> Deletar conta </h5>
         <button id="btnCloseIcon" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cleanModal()"></button>
       </div>
             <h6>Deseja excluir sua conta ? </h6>
-      <h6 id="name_user" th:field="*{nome}">
-      </h6>
       <h6 class="modal-body m-0" id="email_info" th:field="*{email}">
+            <h6 class="text-center" id="name_user" th:text="${user.nome}"></h6>
+      <h6 class="modal-body m-0 text-center" id="place_info" th:text="${user.email}">
       </h6>
       <div class="modal-footer d-flex justify-content-center">
           <button type="submit" class="btn btn-outline-success" th:style="@{width:50%;}">Excluir conta</button>

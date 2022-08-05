@@ -1,7 +1,11 @@
 package com.konoPlace.konoplace.controllers;
 
+import com.konoPlace.konoplace.models.MesaModel;
+import com.konoPlace.konoplace.models.ReservaModel;
 import com.konoPlace.konoplace.models.UserLogin;
 import com.konoPlace.konoplace.models.UserModel;
+import com.konoPlace.konoplace.repositories.MesaRepository;
+import com.konoPlace.konoplace.repositories.ReservaRepository;
 import com.konoPlace.konoplace.repositories.UserRepository;
 import com.konoPlace.konoplace.services.CookieService;
 import com.konoPlace.konoplace.services.UserService;
@@ -17,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,19 +41,56 @@ public class UserController {
     private UserRepository repository;
 
     @Autowired
+    private MesaRepository repositoryMesa;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private CookieService cookieService;
+
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     @GetMapping("/list")
     public ResponseEntity<List<UserModel>> getUsers(){
       return ResponseEntity.ok(repository.findAll());
     }
 
+    @GetMapping()
+    public ModelAndView getMesaModel(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("home.html");
+
+        ReservaModel reservamodel = new ReservaModel();
+        List<MesaModel> mesas = repositoryMesa.findAll();
+        List<ReservaModel> reserva = reservaRepository.findAll();
+
+        model.addObject("place" , mesas);
+        model.addObject("reservas" , reserva);
+        model.addObject("reservaModel" , reservamodel);
+        return model;
+    }
+
+
+    @GetMapping("/test")
+    public ModelAndView testScreen(){
+        ModelAndView model = new ModelAndView("test");
+        MesaModel mesa = new MesaModel();
+        model.addObject("mesa", mesa);
+        return model;
+    }
+
+    @PostMapping("/registerMesa")
+    public ModelAndView createPlace(@ModelAttribute MesaModel mesa , HttpServletRequest request){
+        ModelAndView model = new ModelAndView("perfil");
+        repositoryMesa.save(mesa);
+        UserController controller = new UserController();
+        return controller.perfilScreen(request);
+    }
 
     @GetMapping("/register")
-    public ModelAndView  registerScreen(){
+    public ModelAndView registerScreen(){
         ModelAndView model = new ModelAndView("index");
         UserModel user = new UserModel();
         model.addObject("userModel",user);
@@ -96,14 +138,6 @@ public class UserController {
         return model;
     }
 
-    private UserModel getPrincipal(){
-        UserModel user = null;
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserModel ){
-            user = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
-        return user;
-    }
-
     @PostMapping("/register")
     public void createUser(@ModelAttribute UserModel user , HttpServletResponse response) {
             userService.registerUser(user,response);
@@ -116,7 +150,7 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public void EditUser(@ModelAttribute UserModel user ){
+    public void EditUser(@RequestBody UserModel user ){
         ModelAndView mv = new ModelAndView();
 
         UserModel userModel = new UserModel();
@@ -128,14 +162,17 @@ public class UserController {
         userModel.setCargo(user.getCargo());
         userModel.setDepartamento(user.getDepartamento());
         userModel.setFoto(user.getFoto());
-        userModel.setTelefone(user.getTelefone());
         userModel.setNome(user.getNome());
 
         repository.save(user);
+        MesaController mesa = new MesaController();
+        mesa.getMesaModel();
+
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void DeleteUser(@PathVariable Long id){
-        repository.deleteById(id);
+    @DeleteMapping("/delete")
+    public void DeleteUser(@ModelAttribute UserModel user , HttpServletResponse response, HttpServletRequest req) throws ServletException {
+        repository.deleteById(user.getId());
+        req.logout();
     }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pt-br" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
+<form th:object="${mesa}" th:action="@{/registerMesa}" method="post">
+    <input type="text" th:field="*{name}">
+    <input type="text" th:field="*{perifericos}">
+    <button type="submit">Enviar</button>
+</form>
+</body>
+</html>
